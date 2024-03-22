@@ -1,12 +1,42 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
+import styled from 'styled-components';
 
-const HomePage = () => {
+import Title from '../Title';
+import Welcome from '../HomeComponents/Welcome';
+import InfoOptionCard from '../HomeComponents/infoOptionCard'
+import Video from '../HomeComponents/Video'
+
+const StyledDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 2%;
+    padding: 2%;
+`
+
+const HomePage = ({handleItemClick}) => {
     return (
-        <div>
-            <h1>Welcome to the Home Page</h1>
-            <p>This is the content of the home page.</p>
+        <div style={{ width: '100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',position:'relative' }}>
+            <Typography style={{fontWeight:'bold'}} variant="h4" component="h2" gutterBottom>
+                Welcome to the Home Page
+            </Typography>
+            <Welcome />
+            <Title text="Information Options"/>
+            <div>
+                <StyledDiv>
+                    <InfoOptionCard icon={0} title="Live Articles" text="Current Israeli news coverage from global sources." page={'Articles'} handleItemClick={handleItemClick} />
+                    <InfoOptionCard icon={1} title="Safety Instruction" text="This website provides safety  instructions on various topics during emergency situations." page={'Health & Safety'} handleItemClick={handleItemClick} />
+                </StyledDiv>
+                <StyledDiv>
+                    <InfoOptionCard icon={2} title="Organization" text="A compilation of safety and emergency organizations along with relevant information." page={'Business'} handleItemClick={handleItemClick} />
+                    <InfoOptionCard icon={3} title="Resources" text="Information about available resources, recourse options, and demand." page={'Inventory'}  handleItemClick={handleItemClick} />
+                </StyledDiv>
+            </div>
+            <div style={{width:'100%'}}>
+                <Video />
+            </div>
         </div>
     );
 };

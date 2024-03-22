@@ -181,9 +181,9 @@ export default function DashBoard() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {currentPage === 'Home' && <HomePage />}
+        {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick}/>}
         {currentPage === 'Articles' && <ArticlesPage />}
-                    
+
       </Box>
     </Box>
   );
