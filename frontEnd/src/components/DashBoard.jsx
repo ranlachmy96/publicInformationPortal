@@ -118,7 +118,7 @@ export default function DashBoard() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex',justifyContent:'center' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
