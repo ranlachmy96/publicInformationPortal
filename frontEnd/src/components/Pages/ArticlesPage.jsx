@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import ArticleCard from '../ArticleComponents/ArticleCard';
-import useFetchNews from '../hook/useFetchNews';
+import useFetchNews from '../middleware/useFetchNews';
 
 const ArticlesPage = () => {
     const { newsData, loading, error } = useFetchNews();
@@ -15,17 +15,17 @@ const ArticlesPage = () => {
                 Israeli Articles<br />From Around The Globe
             </Typography>
             {loading &&
-                <Box sx={{ display: 'flex',marginTop:'30px' }}>
+                <Box sx={{ display: 'flex', marginTop: '30px' }}>
                     <CircularProgress />
                 </Box>
             }
-            {error && 
-            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
-                <img src={'../../../public/Error.jpg'} alt="Error" style={{ width: '50%', height: 'auto', borderRadius: '25px' }} />
-                <Typography variant="h5" component="h2" gutterBottom sx={{ marginTop:'-40px',fontWeight: 'bold' }}>
-                    Error fetching data
-                </Typography>
-            </div>
+            {error &&
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src={'../../../public/Error.jpg'} alt="Error" style={{ width: '50%', height: 'auto', borderRadius: '25px' }} />
+                    <Typography variant="h5" component="h2" gutterBottom sx={{ marginTop: '-40px', fontWeight: 'bold' }}>
+                        Error fetching data
+                    </Typography>
+                </div>
             }
             {newsData && (
                 <div style={{ display: 'flex', width: '90vw', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -35,7 +35,7 @@ const ArticlesPage = () => {
                             sx={{ width: '100%' }}
                             title={article.title}
                             link={article.url}
-                            src={article.source}
+                            website={article.source}
                         />
                     ))}
                 </div>
