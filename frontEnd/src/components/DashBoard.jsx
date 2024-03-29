@@ -22,6 +22,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import BusinessIcon from '@mui/icons-material/Business';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import ChatModal from './ChatComponents/ChatModal';
 
 import HomePage from './Pages/HomePage';
 import ArticlesPage from './Pages/ArticlesPage';
@@ -118,7 +119,8 @@ export default function DashBoard() {
   };
 
   return (
-    <Box sx={{ display: 'flex',justifyContent:'center' }}>
+    <Box sx={{ display: 'flex',justifyContent:'center',position:'relative' }}>
+      <ChatModal />
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>

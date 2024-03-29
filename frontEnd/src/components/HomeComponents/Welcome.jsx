@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
@@ -29,46 +29,64 @@ const InnerPaper = styled(Paper)`
   width: 70%;
   height: 100%;
   margin: 2%;
-  borderRadius:'45px'
+  border-radius: 45px;
 `;
 
 const StyledLi = styled.li`
-  margin-bottom: 1%;
+  margin-bottom: 2%;
+  animation: slide-up 1s ease infinite alternate; /* Animation added */
 `;
 
 const StyledUl = styled.ul`
-    margin: 5%;
-    text-align: left;
+  margin: 5%;
+  text-align: left;
 `;
 
+
+
 const Welcome = () => {
-    return (
-        <div>
-            <StyledPaper elevation={3}>
-                <ContentWrapper>
-                    <Typography style={{marginTop:'15px',fontSize:'15px',fontWeight:'bold'}} variant="h6" component="h2" >
-                        Stay Informed, Stay Safe<br />
-                        “tarzan”
-                    </Typography>
-                    <InnerPaper>
-                        <div style={{ margin: "3%" }}>
-                            <Typography style={{fontSize:'24px',fontWeight:'bold'}}  variant="h5" component="h2" gutterBottom>
-                                Active Alerts
-                            </Typography>
-                            <StyledUl>
-                                <StyledLi>Alert 1</StyledLi>
-                                <StyledLi>Alert 2</StyledLi>
-                                <StyledLi>Alert 3</StyledLi>
-                                <StyledLi>Alert 4</StyledLi>
-                                <StyledLi>Alert 5</StyledLi>
-                                <StyledLi>Alert 6</StyledLi>
-                            </StyledUl>
-                        </div>
-                    </InnerPaper>
-                </ContentWrapper>
-            </StyledPaper>
-        </div>
-    );
+  const alerts = ['Alert 1', 'Alert 2', 'Alert 3', 'Alert 4', 'Alert 5', 'Alert 6', 'Alert 7'];
+  const [displayedIndex, setDisplayedIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDisplayedIndex(prevIndex => (prevIndex + 1) % alerts.length);
+    }, 3000); // Change this interval as needed
+
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, [alerts.length]);
+
+  const displayedAlerts = [
+    alerts[displayedIndex],
+    alerts[(displayedIndex + 1) % alerts.length],
+    alerts[(displayedIndex + 2) % alerts.length],
+    alerts[(displayedIndex + 3) % alerts.length],
+  ];
+
+  return (
+    <div>
+      <StyledPaper elevation={3}>
+        <ContentWrapper>
+          <Typography style={{ marginTop: '15px', fontSize: '15px', fontWeight: 'bold' }} variant="h6" component="h2">
+            Stay Informed, Stay Safe<br />
+            “tarzan”
+          </Typography>
+          <InnerPaper>
+            <div style={{ margin: '3%' }}>
+              <Typography style={{ fontSize: '24px', fontWeight: 'bold' }} variant="h5" component="h2" gutterBottom>
+                Active Alerts
+              </Typography>
+              <StyledUl>
+                {displayedAlerts.map((alert, index) => (
+                  <StyledLi key={index}>{alert}</StyledLi>
+                ))}
+              </StyledUl>
+            </div>
+          </InnerPaper>
+        </ContentWrapper>
+      </StyledPaper>
+    </div>
+  );
 };
 
 export default Welcome;
