@@ -45,3 +45,8 @@
 ::1 - - [29/Mar/2024:21:01:20 +0000] "GET /socket.io/?EIO=4&transport=polling&t=OwC161z HTTP/1.1" 404 149 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
 ::1 - - [29/Mar/2024:21:01:22 +0000] "GET /socket.io/?EIO=4&transport=polling&t=OwC16XG HTTP/1.1" 404 149 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
 ::1 - - [29/Mar/2024:21:01:24 +0000] "GET /socket.io/?EIO=4&transport=polling&t=OwC170V HTTP/1.1" 404 149 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [30/Mar/2024:21:30:00 +0000] "GET /instructions/1 HTTP/1.1" 200 510 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [30/Mar/2024:21:30:00 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:3000/instructions/1" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [30/Mar/2024:21:30:06 +0000] "GET /instructions/1 HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [30/Mar/2024:21:30:10 +0000] "GET /instructions/ HTTP/1.1" 200 3684 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [30/Mar/2024:21:32:50 +0000] "GET /instructions/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"

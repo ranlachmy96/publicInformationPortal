@@ -1,6 +1,6 @@
 const cors = require('cors');
 const express = require('express');
-const logger = require('./loggers/logger');
+const {logger, loggerDev} = require('./loggers/logger');
 const { Server } = require("socket.io");
 const http = require("http");
 require('dotenv').config();
@@ -25,6 +25,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
+app.use(loggerDev);
 
 app.use('/instructions', InstructionsRouter);
 app.use('/organizations', OrganizationsRouter);

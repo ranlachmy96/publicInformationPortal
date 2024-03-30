@@ -6,5 +6,6 @@ const morgan = require('morgan');
 const logStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 const logger = morgan('combined', { stream: logStream });
+const loggerDev = morgan('dev');
 
-module.exports = logger;
+module.exports = { logger, loggerDev };
