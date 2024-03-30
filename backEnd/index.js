@@ -5,7 +5,7 @@ const { Server } = require("socket.io");
 const http = require("http");
 require('dotenv').config();
 // const { errorHandler } = require('./middlewares/errorHandler');
-const { InstructionsRouter } = require('./routers/instructionsRouter.router');
+const { InstructionsRouter } = require('./routers/InstructionsRouter.router');
 const { OrganizationsRouter } = require('./routers/OrganizationsRouter.router');
 
 
