@@ -5,6 +5,9 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:4000");
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
@@ -15,22 +18,34 @@ const ChatWindow = () => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
     }
+
+    socket.on("receive_message", (data) => {
+      setMessages([...messages, { text: data.message, sender: 'other', timestamp: new Date() }]);
+    });
+
+    return () => {
+      socket.off("receive_message");
+    };
   }, [messages]);
 
   const handleMessageSubmit = () => {
     if (inputMessage.trim() !== '') {
-      setMessages([...messages, { text: inputMessage, sender: 'user' }]);
+      const currentTime = new Date();
+      const hours = currentTime.getHours().toString().padStart(2, '0');
+      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+
+      setMessages([...messages, { text: inputMessage, sender: 'user', timestamp: currentTime }]);
+      socket.emit("send_message", { message: inputMessage });
+
       setInputMessage('');
-      // You can add logic here for sending the message to the server or processing it
     }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // Prevent the default behavior of newline on Enter
+      e.preventDefault();
       handleMessageSubmit();
     } else if (e.key === 'Enter' && e.shiftKey) {
-      // Add a newline character to the input
       setInputMessage((prevMessage) => prevMessage + '\n');
     }
   };
@@ -42,10 +57,6 @@ const ChatWindow = () => {
       </Typography>
     ));
   };
-
-  const currentTime = new Date();
-  const hours = currentTime.getHours().toString().padStart(2, '0');
-  const minutes = currentTime.getMinutes().toString().padStart(2, '0');
 
   return (
     <Paper
@@ -65,31 +76,30 @@ const ChatWindow = () => {
           padding: 2,
           minHeight: 0,
           '&::-webkit-scrollbar': {
-            display: 'none', // Hide scrollbar for WebKit browsers (Chrome, Safari, etc.)
+            display: 'none',
           },
-          scrollbarWidth: 'none', // Hide scrollbar for Firefox
+          scrollbarWidth: 'none',
         }}
       >
         {messages.map((message, index) => (
           <div key={index} style={{ textAlign: 'left', marginBottom: 8 }}>
-            <Typography variant="body1" sx={{ mb: 1 }}>
+            <Typography variant="body1" sx={{ mb: 1,display:'flex',justifyContent: message.sender === 'user' ? 'flex-start' : 'flex-end', }}>
               <Paper
                 sx={{
                   backgroundColor: message.sender === 'user' ? '#DCF8C6' : '#E3E3E3',
                   padding: 1.1,
                   borderRadius: 4,
                   width: 'fit-content',
-                  maxWidth: '70%', // Limit the maximum width of the chat bubble
-                  wordWrap: 'break-word', // Allow long words to break and wrap to the next line
+                  maxWidth: '70%',
+                  wordWrap: 'break-word',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
-                  justifyContent: 'center',
                 }}
               >
                 {renderMessageText(message.text)}
                 <Typography variant="caption" sx={{ color: '#666', fontSize: 10 }}>
-                  {`${hours}:${minutes}`}
+                  {`${message.timestamp.getHours().toString().padStart(2, '0')}:${message.timestamp.getMinutes().toString().padStart(2, '0')}`}
                 </Typography>
               </Paper>
             </Typography>
@@ -103,8 +113,8 @@ const ChatWindow = () => {
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          multiline  // Enable multiline input
-          rows={1}  // Set the initial number of rows
+          multiline
+          rows={1}
         />
         <Button variant="contained" sx={{ height: '100%' }} onClick={handleMessageSubmit}>
           <SendIcon />

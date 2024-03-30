@@ -26,6 +26,7 @@ import ChatModal from './ChatComponents/ChatModal';
 
 import HomePage from './Pages/HomePage';
 import ArticlesPage from './Pages/ArticlesPage';
+import TestPage from './Pages/TestPage';
 
 const drawerWidth = 240;
 
@@ -185,6 +186,7 @@ export default function DashBoard() {
         <DrawerHeader />
         {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick}/>}
         {currentPage === 'Articles' && <ArticlesPage />}
+        {currentPage === 'Health & Safety' && <TestPage />}
 
       </Box>
     </Box>

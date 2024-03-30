@@ -1,10 +1,13 @@
 const cors = require('cors');
 const express = require('express');
 const logger = require('./loggers/logger');
+const { Server } = require("socket.io");
+const http = require("http");
 require('dotenv').config();
-const { errorHandler } = require('./middlewares/errorHandler');
+// const { errorHandler } = require('./middlewares/errorHandler');
 const { InstructionsRouter } = require('./routers/instructionsRouter.router');
 const { OrganizationsRouter } = require('./routers/OrganizationsRouter.router');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -30,4 +33,20 @@ app.listen(port, () => {
   console.log(`Express server is running on port ${port}`);
 });
 
-module.exports = app;
+
+// Socket.io
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
+});
+
+io.on("connection", (socket) => {
+  console.log(`a user connected ${socket.id}`);
+  
+  socket.on("send_message", (data) => {
+    socket.broadcast.emit("receive_message", data);
+  });
+});
+server.listen(4000, () => {
+  console.log("listening on *:4000");
+});
