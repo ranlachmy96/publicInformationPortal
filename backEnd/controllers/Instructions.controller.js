@@ -57,7 +57,6 @@ exports.createInstruction = async (req, res, next) => {
             throw new BodyNotSent();
         }
         const { body: Instruction } = req;
-        
         // eslint-disable-next-line no-underscore-dangle
         Instruction._id = await generateId();
         const result = await create(Instruction);

@@ -53,7 +53,7 @@ exports.getOrganization = async (req, res, next) => {
 
 exports.createOrganization = async (req, res, next) => {
     try {
-        if (!req.body.category || !req.body.title || !req.body.description || !req.body.date) {
+        if (!req.body.title || !req.body.description || !req.body.url || !req.body.org_id || !req.body.phone) {
             throw new BodyNotSent();
         }
         const { body: Organization } = req;
