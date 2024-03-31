@@ -68,11 +68,6 @@ export default function FullScreenDialog() {
                     </Toolbar>
                 </AppBar>
                 {/* content here */}
-                {/* <Chatbot 
-                    config={config}
-                    actionProvider={ActionProvider}
-                    messageParser={MessageParser}
-                /> */}
                 <ChatWindow />
 
             </Dialog>

@@ -20,7 +20,9 @@ const emergencyKeywords = [
     'time-critical', 'time-sensitive', 'time-bound', 'time-constrained', 'time-limited', 'time', 'earthquake',
     'emergency', 'urgent', 'crisis', 'disaster', 'catastrophe', 'accident', 'hazard', 'evacuation', 'safety',
     'rescue', 'first aid', 'emergency response', 'emergency preparedness', 'emergency plan', 'natural disaster',
-    'earthquake', 'fire', 'flood', 'tsunami', 'tornado', 'hurricane', 'cyclone', 'wildfire', 'avalanche', 'emergency services'
+    'earthquake', 'fire', 'flood', 'tsunami', 'tornado', 'hurricane', 'cyclone', 'wildfire', 'avalanche', 'emergency services',
+    'hi', 'hello', 'hey', 'greetings', 'good day', 'good morning', 'good afternoon', 'good evening', 'good night',
+    'thank you', 'thanks', 'thanks a lot', 'thanks so much', 'thank you very much', 'thank you so much', 'thank you very much',
 ];
 
 export default emergencyKeywords;

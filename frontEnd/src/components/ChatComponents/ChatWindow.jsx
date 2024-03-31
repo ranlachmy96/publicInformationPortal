@@ -16,12 +16,32 @@ const ChatWindow = () => {
   const messageContainerRef = useRef(null);
 
   useEffect(() => {
+    addIntroductoryMessage();
+  }, []);
+
+  useEffect(() => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
-  const debouncedSend = debounce(handleSend, 1000); // Debounce handleSend
+  const debouncedSend = debounce(handleSend, 1000);
+
+  const addIntroductoryMessage = () => {
+    const currentTime = new Date();
+    const hours = currentTime.getHours().toString().padStart(2, '0');
+    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    const timestamp = `${hours}:${minutes}`;
+
+    const introMessage = {
+      message: "Hello, I'm an emergency bot powered by ChatGPT. Ask me anything related to emergency information.",
+      sender: 'ChatGPT',
+      direction: 'incoming',
+      timestamp,
+    };
+
+    setMessages([introMessage]);
+  };
 
   async function handleSend(message) {
     const currentTime = new Date();
@@ -33,7 +53,7 @@ const ChatWindow = () => {
       message,
       direction: 'outgoing',
       sender: 'user',
-      timestamp, // Add timestamp to the user message object
+      timestamp,
     };
 
     const newMessages = [...messages, newMessage];
@@ -41,7 +61,6 @@ const ChatWindow = () => {
 
     setIsTyping(true);
 
-    // Check if the user's message contains keywords related to emergency time information
     const isEmergencyRelated = checkEmergencyRelated(message);
 
     try {
@@ -74,7 +93,7 @@ const ChatWindow = () => {
             message: result,
             sender: 'ChatGPT',
             direction: 'incoming',
-            timestamp, // Add timestamp to the chatbot response object
+            timestamp,
           };
           setMessages([...newMessages, botMessage]);
         } else {
@@ -84,10 +103,10 @@ const ChatWindow = () => {
       } else {
         console.log('User message is not related to emergency time information. Skipping API request.');
         setMessages([...newMessages, {
-          message: "I'm sorry, I can only provide emergency time information. Please ask me something related to that.",
+          message: "I'm sorry, I can only provide emergency information. Please ask me something related to that.",
           sender: 'ChatGPT',
           direction: 'incoming',
-          timestamp, // Add timestamp to the chatbot response object
+          timestamp,
         }]);
       }
     } catch (error) {
@@ -97,26 +116,23 @@ const ChatWindow = () => {
     }
   }
 
-  // Function to check if the user's message contains keywords related to emergency time information
   function checkEmergencyRelated(message) {
-    // Example keywords related to emergency time information
     const lowerCaseMessage = message.toLowerCase();
     return emergencyKeywords.some(keyword => lowerCaseMessage.includes(keyword));
   }
 
   const handleMessageSubmit = () => {
     if (inputMessage.trim() !== '') {
-      debouncedSend(inputMessage); // Send the message through debouncedSend
+      debouncedSend(inputMessage);
       setInputMessage('');
     }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // Prevent the default behavior of newline on Enter
+      e.preventDefault();
       handleMessageSubmit();
     } else if (e.key === 'Enter' && e.shiftKey) {
-      // Add a newline character to the input
       setInputMessage(prevMessage => prevMessage + '\n');
     }
   };
@@ -139,6 +155,7 @@ const ChatWindow = () => {
       </div>
     );
   };
+  
 
   return (
     <Paper
@@ -158,9 +175,9 @@ const ChatWindow = () => {
           padding: 2,
           minHeight: 0,
           '&::-webkit-scrollbar': {
-            display: 'none', // Hide scrollbar for WebKit browsers (Chrome, Safari, etc.)
+            display: 'none',
           },
-          scrollbarWidth: 'none', // Hide scrollbar for Firefox
+          scrollbarWidth: 'none',
         }}
       >
         {messages.map((message, index) => (
@@ -172,8 +189,8 @@ const ChatWindow = () => {
                 borderRadius: 4,
                 marginBottom: 1,
                 width: 'fit-content',
-                maxWidth: '70%', // Limit the maximum width of the chat bubble
-                wordWrap: 'break-word', // Allow long words to break and wrap to the next line
+                maxWidth: '70%',
+                wordWrap: 'break-word',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
@@ -192,8 +209,8 @@ const ChatWindow = () => {
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          multiline  // Enable multiline input
-          rows={1}  // Set the initial number of rows
+          multiline
+          rows={1}
         />
         <Button variant="contained" sx={{ height: '100%' }} onClick={handleMessageSubmit}>
           <SendIcon />
