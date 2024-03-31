@@ -76,7 +76,7 @@ const ChatWindow = () => {
           data: {
             messages: newMessages.map(msg => ({ role: 'user', content: msg.message })),
             web_access: false,
-            system_prompt: '',
+            system_prompt: 'Emergency information chatbot.',
             temperature: 0.9,
             top_k: 5,
             top_p: 0.9,
