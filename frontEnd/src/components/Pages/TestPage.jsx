@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
+// import { Chatbot } from "react-chatbot-kit";
+// import config from "../ChatComponents/Chatbot/config";
+// import ActionProvider from "../ChatComponents/Chatbot/ActionProvider";
+// import MessageParser from "../ChatComponents/Chatbot/MessageParser";
+// import 'react-chatbot-kit/build/main.css';
+
+// const socket = io.connect("http://localhost:4000");
 
 function TestPage() {
   function sendMessage() {
@@ -15,8 +21,6 @@ function TestPage() {
 
   return (
     <div className="App">
-      <input placeholder="Message" />
-      <button onClick={sendMessage}>Send message</button>
     </div>
   );
 }

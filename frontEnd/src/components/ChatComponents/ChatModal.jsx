@@ -7,8 +7,16 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import ChatWindow from './ChatWindow';
+// import { Chatbot } from 'react-chatbot-kit';
+// import 'react-chatbot-kit/build/main.css';
+// import config from './Chatbot/config';
+// import ActionProvider from './Chatbot/ActionProvider';
+// import MessageParser from './Chatbot/MessageParser';
 
 import ActionButton from './ActionButton';
+
+import './ChatBot.style.css';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -35,8 +43,8 @@ export default function FullScreenDialog() {
                 TransitionComponent={Transition}
                 PaperProps={{
                     sx: {
-                        width: '35%',
-                        height: '75%',
+                        width: '25%',
+                        height: '70%',
                         position: 'absolute',
                         bottom: 0,
                         right: 0,
@@ -56,10 +64,17 @@ export default function FullScreenDialog() {
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             Chat
-                        </Typography>
+                        </Typography>   
                     </Toolbar>
                 </AppBar>
+                {/* content here */}
+                {/* <Chatbot 
+                    config={config}
+                    actionProvider={ActionProvider}
+                    messageParser={MessageParser}
+                /> */}
                 <ChatWindow />
+
             </Dialog>
         </React.Fragment>
     );

@@ -1,61 +1,143 @@
 import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
+import debounce from 'lodash/debounce';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
-import io from "socket.io-client";
-
-const socket = io.connect("http://localhost:4000");
+import emergencyKeywords from './Keywords'; // Assuming you have a file containing emergencyKeywords
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const messageContainerRef = useRef(null);
 
   useEffect(() => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
     }
-
-    socket.on("receive_message", (data) => {
-      setMessages([...messages, { text: data.message, sender: 'other', timestamp: new Date() }]);
-    });
-
-    return () => {
-      socket.off("receive_message");
-    };
   }, [messages]);
+
+  const debouncedSend = debounce(handleSend, 1000); // Debounce handleSend
+
+  async function handleSend(message) {
+    const currentTime = new Date();
+    const hours = currentTime.getHours().toString().padStart(2, '0');
+    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    const timestamp = `${hours}:${minutes}`;
+
+    const newMessage = {
+      message,
+      direction: 'outgoing',
+      sender: 'user',
+      timestamp, // Add timestamp to the user message object
+    };
+
+    const newMessages = [...messages, newMessage];
+    setMessages(newMessages);
+
+    setIsTyping(true);
+
+    // Check if the user's message contains keywords related to emergency time information
+    const isEmergencyRelated = checkEmergencyRelated(message);
+
+    try {
+      if (isEmergencyRelated) {
+        const options = {
+          method: 'POST',
+          url: 'https://open-ai21.p.rapidapi.com/conversationgpt35',
+          headers: {
+            'content-type': 'application/json',
+            'X-RapidAPI-Key': 'db6562e42bmsh58cdf15d9ea7e92p197a88jsnff808b80a1e8',
+            'X-RapidAPI-Host': 'open-ai21.p.rapidapi.com'
+          },
+          data: {
+            messages: newMessages.map(msg => ({ role: 'user', content: msg.message })),
+            web_access: false,
+            system_prompt: '',
+            temperature: 0.9,
+            top_k: 5,
+            top_p: 0.9,
+            max_tokens: 256
+          }
+        };
+
+        const response = await axios.request(options);
+        console.log('API Response:', response.data);
+
+        const { result, status, server_code } = response.data;
+        if (result && status && server_code === 1) {
+          const botMessage = {
+            message: result,
+            sender: 'ChatGPT',
+            direction: 'incoming',
+            timestamp, // Add timestamp to the chatbot response object
+          };
+          setMessages([...newMessages, botMessage]);
+        } else {
+          console.error('Invalid response format from ChatGPT API');
+          console.error('Response:', response.data);
+        }
+      } else {
+        console.log('User message is not related to emergency time information. Skipping API request.');
+        setMessages([...newMessages, {
+          message: "I'm sorry, I can only provide emergency time information. Please ask me something related to that.",
+          sender: 'ChatGPT',
+          direction: 'incoming',
+          timestamp, // Add timestamp to the chatbot response object
+        }]);
+      }
+    } catch (error) {
+      console.error('Error while sending message to ChatGPT API:', error);
+    } finally {
+      setIsTyping(false);
+    }
+  }
+
+  // Function to check if the user's message contains keywords related to emergency time information
+  function checkEmergencyRelated(message) {
+    // Example keywords related to emergency time information
+    const lowerCaseMessage = message.toLowerCase();
+    return emergencyKeywords.some(keyword => lowerCaseMessage.includes(keyword));
+  }
 
   const handleMessageSubmit = () => {
     if (inputMessage.trim() !== '') {
-      const currentTime = new Date();
-      const hours = currentTime.getHours().toString().padStart(2, '0');
-      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-
-      setMessages([...messages, { text: inputMessage, sender: 'user', timestamp: currentTime }]);
-      socket.emit("send_message", { message: inputMessage });
-
+      debouncedSend(inputMessage); // Send the message through debouncedSend
       setInputMessage('');
     }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
+      e.preventDefault(); // Prevent the default behavior of newline on Enter
       handleMessageSubmit();
     } else if (e.key === 'Enter' && e.shiftKey) {
-      setInputMessage((prevMessage) => prevMessage + '\n');
+      // Add a newline character to the input
+      setInputMessage(prevMessage => prevMessage + '\n');
     }
   };
 
-  const renderMessageText = (text) => {
-    return text.split('\n').map((line, index) => (
-      <Typography key={index} variant="body2" sx={{ color: '#333', fontWeight: 500, textAlign: 'left', width: '100%', fontSize: 16 }}>
-        {line}
-      </Typography>
-    ));
+  const renderMessageText = (message) => {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography variant="body2" sx={{
+          color: '#333',
+          fontWeight: 500,
+          display: 'flex',
+          width: '100%',
+          fontSize: 16,
+        }}>
+          {message.message}
+        </Typography>
+        <Typography variant="caption" sx={{ color: '#666', fontSize: 10 }}>
+          {message.timestamp}
+        </Typography>
+      </div>
+    );
   };
 
   return (
@@ -76,33 +158,30 @@ const ChatWindow = () => {
           padding: 2,
           minHeight: 0,
           '&::-webkit-scrollbar': {
-            display: 'none',
+            display: 'none', // Hide scrollbar for WebKit browsers (Chrome, Safari, etc.)
           },
-          scrollbarWidth: 'none',
+          scrollbarWidth: 'none', // Hide scrollbar for Firefox
         }}
       >
         {messages.map((message, index) => (
-          <div key={index} style={{ textAlign: 'left', marginBottom: 8 }}>
-            <Typography variant="body1" sx={{ mb: 1,display:'flex',justifyContent: message.sender === 'user' ? 'flex-start' : 'flex-end', }}>
-              <Paper
-                sx={{
-                  backgroundColor: message.sender === 'user' ? '#DCF8C6' : '#E3E3E3',
-                  padding: 1.1,
-                  borderRadius: 4,
-                  width: 'fit-content',
-                  maxWidth: '70%',
-                  wordWrap: 'break-word',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
-                }}
-              >
-                {renderMessageText(message.text)}
-                <Typography variant="caption" sx={{ color: '#666', fontSize: 10 }}>
-                  {`${message.timestamp.getHours().toString().padStart(2, '0')}:${message.timestamp.getMinutes().toString().padStart(2, '0')}`}
-                </Typography>
-              </Paper>
-            </Typography>
+          <div key={index} style={{ display:'flex',justifyContent: message.sender === 'ChatGPT' ? 'right' : 'left', marginBottom: 8 }}>
+            <Paper
+              sx={{
+                backgroundColor: message.sender === 'user' ? '#DCF8C6' : '#E3E3E3',
+                padding: 1.1,
+                borderRadius: 4,
+                marginBottom: 1,
+                width: 'fit-content',
+                maxWidth: '70%', // Limit the maximum width of the chat bubble
+                wordWrap: 'break-word', // Allow long words to break and wrap to the next line
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
+                justifyContent: message.sender === 'user' ? 'flex-start' : 'flex-end',
+              }}
+            >
+              {renderMessageText(message)}
+            </Paper>
           </div>
         ))}
       </Paper>
@@ -113,8 +192,8 @@ const ChatWindow = () => {
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          multiline
-          rows={1}
+          multiline  // Enable multiline input
+          rows={1}  // Set the initial number of rows
         />
         <Button variant="contained" sx={{ height: '100%' }} onClick={handleMessageSubmit}>
           <SendIcon />
