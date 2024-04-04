@@ -12,14 +12,11 @@ const { OrganizationsRouter } = require('./routers/OrganizationsRouter.router');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Allow requests from any origin
-// Configure CORS with dynamic origin
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests from any origin
     callback(null, true);
   },
-  credentials: true // Allow credentials (e.g., cookies, authorization headers)
+  credentials: true 
 }));
 
 app.use(express.json());
@@ -34,20 +31,4 @@ app.listen(port, () => {
   console.log(`Express server is running on port ${port}`);
 });
 
-
-// Socket.io
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
-});
-
-io.on("connection", (socket) => {
-  console.log(`a user connected ${socket.id}`);
-  
-  socket.on("send_message", (data) => {
-    socket.broadcast.emit("receive_message", data);
-  });
-});
-server.listen(4000, () => {
-  console.log("listening on *:4000");
-});
+module.exports = app;
