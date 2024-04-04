@@ -24,4 +24,12 @@ class BodyNotSent extends BadRequest {
     this.name = this.constructor.name;
   }
 }
-module.exports = { PropertyExists, BodyNotSent };
+
+class InvalidData extends BadRequest {
+  constructor() {
+    super('Invalid Data');
+    this.name = this.constructor.name;
+  }
+}
+
+module.exports = { PropertyExists, BodyNotSent, InvalidData };

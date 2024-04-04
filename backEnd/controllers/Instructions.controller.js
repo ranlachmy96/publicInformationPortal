@@ -2,7 +2,7 @@ const {
     find, findById, create, update, deleteById,
 } = require('../repositories/Instructions.repository');
 const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
-const { PropertyExists, BodyNotSent } = require('../errors/400.errors');
+const { InvalidData, BodyNotSent } = require('../errors/400.errors');
 
 
 const generateId = async () => {
@@ -41,8 +41,11 @@ exports.getAllInstructions = async (req, res, next) => {
 
 exports.getInstruction = async (req, res, next) => {
     try {
+        if (isNaN(req.params.id)) {
+            throw new InvalidData();
+        }
         const result = await findById(req.params.id);
-        if (result.length === 0) {
+        if (!result || Object.keys(result).length === 0) {
             throw new PropertyNotFound(`specific Instruction data with id of ${req.params.id}`);
         }
         res.status(200).json(result);
@@ -75,11 +78,13 @@ exports.updateInstruction = async (req, res, next) => {
         if (!req.params.id) {
             throw new PropertyNotFound('ID');
         }
+        if (isNaN(req.params.id)) {
+            throw new InvalidData();
+        }
         const existingCase = await findById(req.params.id);
         if (existingCase.length === 0) {
             throw new PropertyNotFound(`Instruction with id ${req.params.id}`);
         }
-
         const { body: Instruction, params: { id } } = req;
         const result = await update(id, Instruction);
         res.status(200).send(result);
@@ -90,6 +95,9 @@ exports.updateInstruction = async (req, res, next) => {
 
 exports.deleteInstruction = async (req, res, next) => {
     try {
+        if (isNaN(req.params.id)) {
+            throw new InvalidData();
+        }
         const existingInstruction = await findById(req.params.id);
         if (existingInstruction.length === 0) {
             throw new PropertyNotFound(`Instruction with id ${req.params.id}`);

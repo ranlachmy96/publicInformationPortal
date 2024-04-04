@@ -88,11 +88,11 @@ describe('GET /Instructions/:id', () => {
         const res = await request(app).get('/Instructions/0')
         expect(res.statusCode).toEqual(404)
     })
-    // // Failure 400
-    // it('should return 400', async () => {
-    //     const res = await request(app).get('/Instructions/abc')
-    //     expect(res.statusCode).toEqual(400)
-    // })
+    // Failure 400
+    it('should return 400', async () => {
+        const res = await request(app).get('/Instructions/abc')
+        expect(res.statusCode).toEqual(400)
+    })
     // Failure 500
     it('should return 500', async () => {
         instructionsRepository.findById.mockRejectedValue(new Error('Test error'))

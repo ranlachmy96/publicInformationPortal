@@ -35,9 +35,7 @@ const ChatWindow = () => {
 
   const handleMessageSubmit = () => {
     if (inputMessage.trim() !== '') {
-      setLoading(true);
       debouncedSend(inputMessage);
-      setLoading(false);
       setInputMessage('');
     }
   };
@@ -52,6 +50,7 @@ const ChatWindow = () => {
   };
 
   const addIntroductoryMessage = () => {
+
     const currentTime = new Date();
     const hours = currentTime.getHours().toString().padStart(2, '0');
     const minutes = currentTime.getMinutes().toString().padStart(2, '0');
@@ -67,6 +66,7 @@ const ChatWindow = () => {
   };
 
   async function handleSend(message) {
+    setLoading(true);
     const currentTime = new Date();
     const hours = currentTime.getHours().toString().padStart(2, '0');
     const minutes = currentTime.getMinutes().toString().padStart(2, '0');
@@ -133,6 +133,7 @@ const ChatWindow = () => {
     } catch (error) {
       console.error('Error while sending message to ChatGPT API:', error);
     }
+    setLoading(false);
   }
 
   return (
