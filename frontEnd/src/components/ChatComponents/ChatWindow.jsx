@@ -5,15 +5,18 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
-import emergencyKeywords from './Keywords'; // Assuming you have a file containing emergencyKeywords
+import LinearProgress from '@mui/material/LinearProgress';
+
+import emergencyKeywords from './ChatWindowComponents/Keywords';
+import Message from './ChatWindowComponents/Message';
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const [loading, setLoading] = useState(false);
   const messageContainerRef = useRef(null);
+  const debouncedSend = debounce(handleSend, 500);
 
   useEffect(() => {
     addIntroductoryMessage();
@@ -25,7 +28,28 @@ const ChatWindow = () => {
     }
   }, [messages]);
 
-  const debouncedSend = debounce(handleSend, 1000);
+  function checkEmergencyRelated(message) {
+    const lowerCaseMessage = message.toLowerCase();
+    return emergencyKeywords.some(keyword => lowerCaseMessage.includes(keyword));
+  }
+
+  const handleMessageSubmit = () => {
+    if (inputMessage.trim() !== '') {
+      setLoading(true);
+      debouncedSend(inputMessage);
+      setLoading(false);
+      setInputMessage('');
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleMessageSubmit();
+    } else if (e.key === 'Enter' && e.shiftKey) {
+      setInputMessage(prevMessage => prevMessage + '\n');
+    }
+  };
 
   const addIntroductoryMessage = () => {
     const currentTime = new Date();
@@ -39,7 +63,6 @@ const ChatWindow = () => {
       direction: 'incoming',
       timestamp,
     };
-
     setMessages([introMessage]);
   };
 
@@ -58,8 +81,6 @@ const ChatWindow = () => {
 
     const newMessages = [...messages, newMessage];
     setMessages(newMessages);
-
-    setIsTyping(true);
 
     const isEmergencyRelated = checkEmergencyRelated(message);
 
@@ -111,51 +132,8 @@ const ChatWindow = () => {
       }
     } catch (error) {
       console.error('Error while sending message to ChatGPT API:', error);
-    } finally {
-      setIsTyping(false);
     }
   }
-
-  function checkEmergencyRelated(message) {
-    const lowerCaseMessage = message.toLowerCase();
-    return emergencyKeywords.some(keyword => lowerCaseMessage.includes(keyword));
-  }
-
-  const handleMessageSubmit = () => {
-    if (inputMessage.trim() !== '') {
-      debouncedSend(inputMessage);
-      setInputMessage('');
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleMessageSubmit();
-    } else if (e.key === 'Enter' && e.shiftKey) {
-      setInputMessage(prevMessage => prevMessage + '\n');
-    }
-  };
-
-  const renderMessageText = (message) => {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="body2" sx={{
-          color: '#333',
-          fontWeight: 500,
-          display: 'flex',
-          width: '100%',
-          fontSize: 16,
-        }}>
-          {message.message}
-        </Typography>
-        <Typography variant="caption" sx={{ color: '#666', fontSize: 10 }}>
-          {message.timestamp}
-        </Typography>
-      </div>
-    );
-  };
-  
 
   return (
     <Paper
@@ -178,10 +156,15 @@ const ChatWindow = () => {
             display: 'none',
           },
           scrollbarWidth: 'none',
+          backgroundImage: 'url(../../../public/chatWallpaper.png)',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center top', // Move the background image down
+
         }}
       >
         {messages.map((message, index) => (
-          <div key={index} style={{ display:'flex',justifyContent: message.sender === 'ChatGPT' ? 'right' : 'left', marginBottom: 8 }}>
+          <div key={index} style={{ display: 'flex', justifyContent: message.sender === 'ChatGPT' ? 'right' : 'left', marginBottom: 8 }}>
             <Paper
               sx={{
                 backgroundColor: message.sender === 'user' ? '#DCF8C6' : '#E3E3E3',
@@ -197,11 +180,14 @@ const ChatWindow = () => {
                 justifyContent: message.sender === 'user' ? 'flex-start' : 'flex-end',
               }}
             >
-              {renderMessageText(message)}
+              <Message message={message} />
             </Paper>
           </div>
         ))}
       </Paper>
+      {loading && (
+        <LinearProgress sx={{ height: 2 }} />
+      )}
       <Stack direction="row" alignItems="center" spacing={2} sx={{ px: 2, py: 1 }}>
         <TextField
           fullWidth

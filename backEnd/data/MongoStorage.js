@@ -1,4 +1,3 @@
-
 const { EventEmitter } = require('events');
 const mongoose = require('mongoose');
 const Path = require('path');
@@ -9,17 +8,16 @@ module.exports = class MongoStorage extends EventEmitter {
 
     this.entityName = entity.charAt(0).toUpperCase() + entity.slice(1);
     this.Model = require(Path.join(__dirname, `../models/${this.entityName}.model.js`));
-    this.connect();
   }
 
   async connect() {
     try {
       const connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
-      await mongoose.connect(connectionUrl)
-        .then(() => console.log(`connected to ${this.entityName} collection `));
+      await mongoose.connect(connectionUrl);
+      console.log(`Connected to ${this.entityName} collection`);
     } catch (error) {
-      console.error(`connection error: ${error}`);
-      throw new Error('DataBase connection error');
+      console.error(`Connection error: ${error}`);
+      throw new Error('Database connection error');
     }
   }
 
@@ -31,9 +29,9 @@ module.exports = class MongoStorage extends EventEmitter {
     return this.Model.find({ _id });
   }
 
-  create(data) {
+  async create(data) {
     const entity = new this.Model(data);
-    entity.save();
+    await entity.save();
   }
 
   update(_id, data) {

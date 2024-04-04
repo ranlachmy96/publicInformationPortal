@@ -1,165 +1,105 @@
-// const request = require('supertest')
-// const app = require('../index')
-// const instructionsRepository = require('../repositories/Instructions.repository')
-// require('dotenv').config()
+const request = require('supertest');
+const app = require('../index');
+const instructionsRepository = require('../repositories/Instructions.repository');
+const MongoStorage = require('../data/MongoStorage');
+require('dotenv').config();
 
-// jest.mock('../repositories/Instruction.repository')
-// describe('GET /api/familyReunificationForm', () => {
-//   beforeEach(() => jest.clearAllMocks())
+jest.mock('../repositories/Instructions.repository');
 
-//   // Success 200
-//   it('should return 200', async () => {
-//     const mockFamilyReunificationForm = [
-//       {
-//         _id: '65b79f7e5eb7a9d890b5b1f3',
-//         id: 1,
-//         citizenId: 123456789,
-//         name: 'John Doe',
-//         personalSituation: 'married',
-//         gender: 'male',
-//         email: 'john@gmail.com',
-//         birthDate: '1989-12-31T22:00:00.000Z',
-//         birthCountry: 'Israel',
-//         address: 'Tel Aviv',
-//         phone: '052-23456789',
-//         marriageCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         CriminalInformationCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         recommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         recommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         passportImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/2048px-Solid_white_bordered.svg.png',
-//         bankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         spousePassportImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         spouseBankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         familyRecommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         familyRecommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         childrenPassportImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         childrenPassportImg2: 'https://via.placeholder.com/500x500.png?text=White+Image'
-//       },
-//       {
-//         _id: '65b79f7e5eb7a9d890b5b1f7',
-//         id: 5,
-//         citizenId: 345678901,
-//         name: 'Michael Brown',
-//         personalSituation: 'married',
-//         gender: 'male',
-//         email: 'michael@gmail.com',
-//         birthDate: '1995-03-11T22:00:00.000Z',
-//         birthCountry: 'Australia',
-//         address: 'Sydney',
-//         phone: '765-4321098',
-//         marriageCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         CriminalInformationCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         recommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         recommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         passportImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/2048px-Solid_white_bordered.svg.png',
-//         bankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         spousePassportImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         spouseBankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         familyRecommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         familyRecommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         childrenPassportImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         childrenPassportImg2: 'https://via.placeholder.com/500x500.png?text=White+Image'
-//       },
-//       {
-//         _id: '65b79f7e5eb7a9d890b5b1f4',
-//         id: 2,
-//         citizenId: 987654321,
-//         name: 'Jane Smith',
-//         personalSituation: 'divorced',
-//         gender: 'female',
-//         email: 'jane@gmail.com',
-//         birthDate: '1985-05-14T21:00:00.000Z',
-//         birthCountry: 'USA',
-//         address: 'New York',
-//         phone: '123-4567890',
-//         marriageCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         CriminalInformationCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         recommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         recommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         passportImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/2048px-Solid_white_bordered.svg.png',
-//         bankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         spousePassportImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         spouseBankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         familyRecommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         familyRecommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         childrenPassportImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//         childrenPassportImg2: 'https://via.placeholder.com/500x500.png?text=White+Image'
-//       }
-//     ]
-//     restaurantsRepository.getFamilyReunificationForms.mockResolvedValue(mockFamilyReunificationForm)
-//     const res = await request(app).get('/api/familyReunificationForm')
-//     expect(res.statusCode).toEqual(200)
-//     expect(res.body).toEqual(mockFamilyReunificationForm)
-//   })
+describe('GET /Instructions', () => {
+    let mongoStorage;
 
-//   // Failure 404
-//   it('should return 404', async () => {
-//     const mockFamilyReunificationForm = []
-//     restaurantsRepository.getFamilyReunificationForms.mockResolvedValue(mockFamilyReunificationForm)
-//     const res = await request(app).get('/api/familyReunificationForm')
-//     expect(res.statusCode).toEqual(404)
-//   })
+    beforeAll(async () => {
+        // Create an instance of MongoStorage and wait for connection
+        mongoStorage = new MongoStorage('Instructions');
+        await mongoStorage.connect();
+    });
 
-//   // Failure 500
-//   it('should return 500', async () => {
-//     restaurantsRepository.getFamilyReunificationForms.mockRejectedValue(new Error('Test error'))
-//     const res = await request(app).get('/api/familyReunificationForm')
-//     expect(res.statusCode).toEqual(500)
-//   })
-// })
-// describe('GET /api/familyReunificationForm/:id', () => {
-//   beforeEach(() => jest.clearAllMocks())
+    beforeEach(() => jest.clearAllMocks());
 
-//   // Success 200
-//   it('should return 200', async () => {
-//     const mockFamilyReunificationForm = {
-//       _id: '65b79f7e5eb7a9d890b5b1f3',
-//       id: 1,
-//       citizenId: 123456789,
-//       name: 'John Doe',
-//       personalSituation: 'married',
-//       gender: 'male',
-//       email: 'john@gmail.com',
-//       birthDate: '1989-12-31T22:00:00.000Z',
-//       birthCountry: 'Israel',
-//       address: 'Tel Aviv',
-//       phone: '052-23456789',
-//       marriageCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       CriminalInformationCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       passportImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/2048px-Solid_white_bordered.svg.png',
-//       bankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spousePassportImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spouseBankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg2: 'https://via.placeholder.com/500x500.png?text=White+Image'
-//     }
-//     restaurantsRepository.getFamilyReunificationFormById.mockResolvedValue(mockFamilyReunificationForm)
-//     const res = await request(app).get('/api/familyReunificationForm/1')
-//     expect(res.statusCode).toEqual(200)
-//     expect(res.body).toEqual(mockFamilyReunificationForm)
-//   })
-//   // Failure 404
-//   it('should return 404', async () => {
-//     restaurantsRepository.getFamilyReunificationFormById.mockResolvedValue(null)
-//     const res = await request(app).get('/api/familyReunificationForm/1')
-//     expect(res.statusCode).toEqual(404)
-//   })
-//   // Failure 400
-//   it('should return 400', async () => {
-//     const res = await request(app).get('/api/familyReunificationForm/abc')
-//     expect(res.statusCode).toEqual(400)
-//   })
-//   // Failure 500
-//   it('should return 500', async () => {
-//     restaurantsRepository.getFamilyReunificationFormById.mockRejectedValue(new Error('Test error'))
-//     const res = await request(app).get('/api/familyReunificationForm/1')
-//     expect(res.statusCode).toEqual(500)
-//   })
-// })
+    // Success 200
+    it('should return 200', async () => {
+        const mockInstructions = [
+            {
+                _id: 1,
+                category: "Donations",
+                title: "Supporting Relief Efforts Through Donations",
+                description: "Your generous donations are essential in supporting relief efforts during crises such as natural disasters, pandemics, or humanitarian emergencies. By contributing, you help provide immediate assistance, essential supplies, shelter, medical aid, and other forms of support to affected individuals and communities, making a significant difference in rebuilding lives and restoring hope.",
+                date: "14/03/2024"
+            },
+            {
+                _id: 2,
+                category: "Security Threats",
+                title: "Enhancing Security Measures Against Threats",
+                description: "Amid security threats, including cyberattacks, terrorism, and geopolitical challenges, your contributions play a vital role in enhancing security measures. Your support enables us to invest in advanced technologies, training programs, and resources necessary to safeguard individuals and communities, ensuring a safer environment for everyone.",
+                date: "14/03/2024"
+            },
+            {
+                _id: 3,
+                category: "Rockets and Missiles",
+                title: "Mitigating Risks from Rockets and Missiles",
+                description: "In areas prone to rocket attacks or missile threats, your donations are crucial in mitigating risks and protecting vulnerable populations. Your support enables us to implement proactive measures, such as early warning systems, shelters, and emergency response plans, to minimize harm and ensure the safety of affected communities.",
+                date: "14/03/2024"
+            }
+        ];
+
+        instructionsRepository.find.mockResolvedValue(mockInstructions);
+        const res = await request(app).get('/Instructions');
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toEqual(mockInstructions);
+    });
+
+    // Failure 404
+    it('should return 404', async () => {
+        const mockInstructions = [];
+        instructionsRepository.find.mockResolvedValue(mockInstructions);
+        const res = await request(app).get('/Instructions');
+        expect(res.statusCode).toEqual(404);
+    });
+
+    // Failure 500
+    it('should return 500', async () => {
+        instructionsRepository.find.mockRejectedValue(new Error('Test error'));
+        const res = await request(app).get('/Instructions');
+        expect(res.statusCode).toEqual(500);
+    });
+});
+
+describe('GET /Instructions/:id', () => {
+    beforeEach(() => jest.clearAllMocks())
+
+    // Success 200
+    it('should return 200', async () => {
+        const mockInstructions = {
+            _id: 1,
+            category: "Donations",
+            title: "Supporting Relief Efforts Through Donations",
+            description: "Your generous donations are essential in supporting relief efforts during crises such as natural disasters, pandemics, or humanitarian emergencies. By contributing, you help provide immediate assistance, essential supplies, shelter, medical aid, and other forms of support to affected individuals and communities, making a significant difference in rebuilding lives and restoring hope.",
+            date: "14/03/2024"
+        }
+        instructionsRepository.findById.mockResolvedValue(mockInstructions)
+        const res = await request(app).get('/Instructions/1')
+        expect(res.statusCode).toEqual(200)
+        expect(res.body).toEqual(mockInstructions)
+    })
+    // Failure 404
+    it('should return 404', async () => {
+        instructionsRepository.findById.mockResolvedValue({})
+        const res = await request(app).get('/Instructions/0')
+        expect(res.statusCode).toEqual(404)
+    })
+    // // Failure 400
+    // it('should return 400', async () => {
+    //     const res = await request(app).get('/Instructions/abc')
+    //     expect(res.statusCode).toEqual(400)
+    // })
+    // Failure 500
+    it('should return 500', async () => {
+        instructionsRepository.findById.mockRejectedValue(new Error('Test error'))
+        const res = await request(app).get('/Instructions/1')
+        expect(res.statusCode).toEqual(500)
+    })
+})
 // describe('POST /api/familyReunificationForm', () => {
 //   beforeEach(() => jest.clearAllMocks())
 
