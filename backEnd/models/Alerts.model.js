@@ -1,10 +1,11 @@
 const { Schema, model } = require('mongoose');
 
-const InstructionsSchema = new Schema({
+const AlertsSchema = new Schema({
     _id: { type: Number, required: true},
     description: { type: String, required: true },
     date: { type: String, required: true },
-}, { collection: 'Instructions' });
+    priority: { type: String, default: "Normal" }
+}, { collection: 'Alerts' });
 
 module.exports = model('Alerts', AlertsSchema);
 

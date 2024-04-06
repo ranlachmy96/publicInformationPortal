@@ -56,7 +56,7 @@ exports.getAlert = async (req, res, next) => {
 
 exports.createAlert = async (req, res, next) => {
     try {
-        if (!req.body.category || !req.body.title || !req.body.description || !req.body.date) {
+        if (!req.body.description || !req.body.date || !req.body.priority) {
             throw new BodyNotSent();
         }
         const { body: Alert } = req;

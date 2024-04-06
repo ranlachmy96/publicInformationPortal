@@ -8,7 +8,6 @@ const {
 } = require('../controllers/Alerts.controller');
 
 const AlertsRouter = new Router();
-
 AlertsRouter.get('/', getAllAlerts);
 AlertsRouter.get('/:id', getAlert);
 AlertsRouter.post('/', createAlert);
