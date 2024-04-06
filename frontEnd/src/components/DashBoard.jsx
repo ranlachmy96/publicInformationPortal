@@ -26,6 +26,7 @@ import ChatModal from './ChatComponents/ChatModal';
 
 import HomePage from './Pages/HomePage';
 import ArticlesPage from './Pages/ArticlesPage';
+import SafetyInstructionPage from './Pages/SafetyInstructionPage';
 
 const drawerWidth = 240;
 
@@ -152,7 +153,7 @@ export default function DashBoard() {
           {[
             { text: 'Home', page: 'Home' },
             { text: 'Articles', page: 'Articles' },
-            { text: 'Health & Safety', page: 'Health & Safety' },
+            { text: 'Safety Instruction', page: 'Safety Instruction' },
             { text: 'Business', page: 'Business' },
             { text: 'Inventory', page: 'Inventory' },
           ].map(({ text, page }, index) => (
@@ -185,7 +186,7 @@ export default function DashBoard() {
         <DrawerHeader />
         {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick}/>}
         {currentPage === 'Articles' && <ArticlesPage />}
-
+        {currentPage === 'Safety Instruction' && <SafetyInstructionPage />}
       </Box>
     </Box>
   );
