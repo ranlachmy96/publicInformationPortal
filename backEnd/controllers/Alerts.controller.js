@@ -86,8 +86,11 @@ exports.updateAlert = async (req, res, next) => {
 
         const { body: Alert, params: { id } } = req;
         const result = await update(id, Alert);
-        if (!result || result.matchedCount === 0 || result.modifiedCount === 0) {
+        if (!result || result.matchedCount === 0) {
             throw new PropertyNotFound(`Specific Alert data with id of ${req.params.id}`);
+        }
+        if(result.modifiedCount === 0){
+            throw new BodyNotSent('Alerts');
         }
         res.status(200).send(result);
     } catch (error) {
