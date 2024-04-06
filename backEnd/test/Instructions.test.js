@@ -100,159 +100,99 @@ describe('GET /Instructions/:id', () => {
         expect(res.statusCode).toEqual(500)
     })
 })
-// describe('POST /api/familyReunificationForm', () => {
-//   beforeEach(() => jest.clearAllMocks())
+describe('POST /Instructions/', () => {
+    beforeEach(() => jest.clearAllMocks())
 
-//   // Success 200
-//   it('should return 200', async () => {
-//     const mockFamilyReunificationForm = {
-//       _id: '65b79f7e5eb7a9d890b5b1f3',
-//       id: 1,
-//       citizenId: 123456789,
-//       name: 'John Doe',
-//       personalSituation: 'married',
-//       gender: 'male',
-//       email: 'john@gmail.com',
-//       birthDate: '1989-12-31T22:00:00.000Z',
-//       birthCountry: 'Israel',
-//       address: 'Tel Aviv',
-//       phone: '052-23456789',
-//       marriageCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       CriminalInformationCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       passportImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/2048px-Solid_white_bordered.svg.png',
-//       bankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spousePassportImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spouseBankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg2: 'https://via.placeholder.com/500x500.png?text=White+Image'
-//     }
-//     restaurantsRepository.addFamilyReunificationForm.mockResolvedValue(mockFamilyReunificationForm)
-//     const res = await request(app).post('/api/familyReunificationForm').send(mockFamilyReunificationForm)
-//     expect(res.statusCode).toEqual(200)
-//     expect(res.body).toEqual(mockFamilyReunificationForm)
-//   })
-//   // Failure 400
-//   it('should return 400 data not provided', async () => {
-//     const res = await request(app).post('/api/familyReunificationForm').send({})
-//     expect(res.statusCode).toEqual(400)
-//   })
-//   it('should return 400 Invalid data', async () => {
-//     const res = await request(app).post('/api/familyReunificationForm').send(
-//       {
-//         id: 1,
-//         stars: 1
-//       }
-//     )
-//     expect(res.statusCode).toEqual(400)
-//   })
-// })
-// describe('PUT /api/familyReunificationForm/:id', () => {
-//   beforeEach(() => jest.clearAllMocks())
+    // Success 200
+    it('should return 200', async () => {
+        const mockInstructions = {
+            _id: 9,
+            title: "Test Title",
+            description: "Lorem Ipsum",
+            date: "1/1/2024",
+            category: "Test",
+        }
+        instructionsRepository.create.mockResolvedValue(mockInstructions)
+        const res = await request(app).post('/Instructions/').send(mockInstructions)
+        expect(res.statusCode).toEqual(200)
+    })
+    // Failure 400
+    it('should return 400 data not provided', async () => {
+        const res = await request(app).post('/Instructions/').send({})
+        expect(res.statusCode).toEqual(400)
+    })
+    it('should return 400 Invalid data', async () => {
+        const res = await request(app).post('/Instructions/').send(
+            {
+                title: "Test Title",
+                description: "Lorem Ipsum",
+                date: "1/1/2024"
+            }
+        )
+        expect(res.statusCode).toEqual(400)
+    })
+})
+describe('PUT /Instructions/:id', () => {
+  beforeEach(() => jest.clearAllMocks())
 
-//   // Success 200
-//   it('should return 200', async () => {
-//     const mockFamilyReunificationForm = {
-//       _id: '65b79f7e5eb7a9d890b5b1f3',
-//       id: 1,
-//       citizenId: 123456789,
-//       name: 'John Doe',
-//       personalSituation: 'married',
-//       gender: 'male',
-//       email: 'john@gmail.com',
-//       birthDate: '1989-12-31T22:00:00.000Z',
-//       birthCountry: 'Israel',
-//       address: 'Tel Aviv',
-//       phone: '052-23456789',
-//       marriageCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       CriminalInformationCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       passportImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/2048px-Solid_white_bordered.svg.png',
-//       bankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spousePassportImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spouseBankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg2: 'https://via.placeholder.com/500x500.png?text=White+Image'
-//     }
-//     restaurantsRepository.updateFamilyReunificationFormById.mockResolvedValue(mockFamilyReunificationForm)
-//     const res = await request(app).put('/api/familyReunificationForm/1').send(mockFamilyReunificationForm)
-//     expect(res.statusCode).toEqual(200)
-//     expect(res.body).toEqual(mockFamilyReunificationForm)
-//   })
-//   // Failure 400
-//   it('should return 400', async () => {
-//     const res = await request(app).put('/api/familyReunificationForm/abc').send({})
-//     expect(res.statusCode).toEqual(400)
-//   })
-//   // Failure 404
-//   it('should return 404', async () => {
-//     restaurantsRepository.updateFamilyReunificationFormById.mockResolvedValue(null)
-//     const res = await request(app).put('/api/familyReunificationForm/1').send({})
-//     expect(res.statusCode).toEqual(404)
-//   })
-//   // Failure 500
-//   it('should return 500', async () => {
-//     restaurantsRepository.updateFamilyReunificationFormById.mockRejectedValue(new Error('Test error'))
-//     const res = await request(app).put('/api/familyReunificationForm/1').send({})
-//     expect(res.statusCode).toEqual(500)
-//   })
-// })
-// describe('DELETE /api/familyReunificationForm/:id', () => {
-//   beforeEach(() => jest.clearAllMocks())
+  // Success 200
+  it('should return 200', async () => {
+    const mockInstructions = {
+        _id: 1,
+        title: "Test Title",
+        description: "Lorem Ipsum",
+        date: "1/1/2024",
+        category: "Test",
+    }
+    instructionsRepository.update.mockResolvedValue(mockInstructions)
+    const res = await request(app).put('/Instructions/1').send(mockInstructions)
+    expect(res.statusCode).toEqual(200)
+    expect(res.body).toEqual(mockInstructions)
+  })
+  // Failure 400
+  it('should return 400', async () => {
+    const res = await request(app).put('/Instructions/abc').send({})
+    expect(res.statusCode).toEqual(400)
+  })
+  // Failure 404
+  it('should return 404', async () => {
+    instructionsRepository.update.mockResolvedValue(null)
+    const res = await request(app).put('/Instructions/1').send({})
+    expect(res.statusCode).toEqual(404)
+  })
+})
+describe('DELETE /Instructions/:id', () => {
+  beforeEach(() => jest.clearAllMocks())
 
-//   // Success 200
-//   it('should return 200', async () => {
-//     const mockFamilyReunificationForm = {
-//       _id: '65b79f7e5eb7a9d890b5b1f3',
-//       id: 1,
-//       citizenId: 123456789,
-//       name: 'John Doe',
-//       personalSituation: 'married',
-//       gender: 'male',
-//       email: 'john@gmail.com',
-//       birthDate: '1989-12-31T22:00:00.000Z',
-//       birthCountry: 'Israel',
-//       address: 'Tel Aviv',
-//       phone: '052-23456789',
-//       marriageCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       CriminalInformationCertificateImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       recommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       passportImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/2048px-Solid_white_bordered.svg.png',
-//       bankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spousePassportImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       spouseBankStatementImg: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       familyRecommendationLetterImg2: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg1: 'https://via.placeholder.com/500x500.png?text=White+Image',
-//       childrenPassportImg2: 'https://via.placeholder.com/500x500.png?text=White+Image'
-//     }
-//     restaurantsRepository.deleteFamilyReunificationFormById.mockResolvedValue(mockFamilyReunificationForm)
-//     const res = await request(app).delete('/api/familyReunificationForm/1')
-//     expect(res.statusCode).toEqual(200)
-//     expect(res.body).toEqual(mockFamilyReunificationForm)
-//   })
-//   // Failure 400
-//   it('should return 400', async () => {
-//     const res = await request(app).delete('/api/familyReunificationForm/abc')
-//     expect(res.statusCode).toEqual(400)
-//   })
-//   // Failure 404
-//   it('should return 404', async () => {
-//     restaurantsRepository.deleteFamilyReunificationFormById.mockResolvedValue(null)
-//     const res = await request(app).delete('/api/familyReunificationForm/1')
-//     expect(res.statusCode).toEqual(404)
-//   })
-//   // Failure 500
-//   it('should return 500', async () => {
-//     restaurantsRepository.deleteFamilyReunificationFormById.mockRejectedValue(new Error('Test error'))
-//     const res = await request(app).delete('/api/familyReunificationForm/1')
-//     expect(res.statusCode).toEqual(500)
-//   })
-// })
+  // Success 200
+  it('should return 200', async () => {
+    const mockInstructions = {
+        _id: 9,
+        title: "Test Title",
+        description: "Lorem Ipsum",
+        date: "1/1/2024",
+        category: "Test",
+    }
+      instructionsRepository.deleteById.mockResolvedValue(mockInstructions)
+    const res = await request(app).delete('/Instructions/9')
+    expect(res.statusCode).toEqual(200)
+    expect(res.body).toEqual(mockInstructions)
+  })
+  // Failure 400
+  it('should return 400', async () => {
+    const res = await request(app).delete('/Instructions/abc')
+    expect(res.statusCode).toEqual(400)
+  })
+  // Failure 404
+  it('should return 404', async () => {
+      instructionsRepository.deleteById.mockResolvedValue(null)
+    const res = await request(app).delete('/Instructions/1')
+    expect(res.statusCode).toEqual(404)
+  })
+  // Failure 500
+  it('should return 500', async () => {
+      instructionsRepository.deleteById.mockRejectedValue(new Error('Test error'))
+    const res = await request(app).delete('/Instructions/1')
+    expect(res.statusCode).toEqual(500)
+  })
+})

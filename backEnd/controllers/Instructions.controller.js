@@ -61,7 +61,9 @@ exports.createInstruction = async (req, res, next) => {
         }
         const { body: Instruction } = req;
         // eslint-disable-next-line no-underscore-dangle
-        Instruction._id = await generateId();
+        if (!Instruction._id) {
+            Instruction._id = await generateId();
+        }
         const result = await create(Instruction);
         res.status(200).json(result || 'Instruction added successfully');
     } catch (error) {
@@ -72,21 +74,18 @@ exports.createInstruction = async (req, res, next) => {
 
 exports.updateInstruction = async (req, res, next) => {
     try {
-        if (JSON.stringify(req.body) === '{}') {
-            throw new EntityNotFound('updated Instruction data');
-        }
-        if (!req.params.id) {
-            throw new PropertyNotFound('ID');
-        }
         if (isNaN(req.params.id)) {
             throw new InvalidData();
         }
-        const existingCase = await findById(req.params.id);
-        if (existingCase.length === 0) {
-            throw new PropertyNotFound(`Instruction with id ${req.params.id}`);
+        if (JSON.stringify(req.body) === '{}') {
+            throw new EntityNotFound('updated Instruction data');
         }
         const { body: Instruction, params: { id } } = req;
         const result = await update(id, Instruction);
+        if (!result || Object.keys(result).length === 0) {
+            throw new PropertyNotFound('ID');
+        }
+
         res.status(200).send(result);
     } catch (error) {
         next(error);
@@ -98,13 +97,12 @@ exports.deleteInstruction = async (req, res, next) => {
         if (isNaN(req.params.id)) {
             throw new InvalidData();
         }
-        const existingInstruction = await findById(req.params.id);
-        if (existingInstruction.length === 0) {
-            throw new PropertyNotFound(`Instruction with id ${req.params.id}`);
-        }
         //add a check if doesnt exists
         const { params: { id } } = req;
         const result = await deleteById(id);
+        if (!result || Object.keys(result).length === 0) {
+            throw new PropertyNotFound('ID');
+        }
         res.status(200).send(result);
     } catch (error) {
         next(error);
