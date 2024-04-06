@@ -85,7 +85,7 @@ exports.updateOrganization = async (req, res, next) => {
         }
         const { body: Organization, params: { id } } = req;
         const result = await update(id, Organization);
-        if (!result || result.matchedCount === 0) {
+        if (!result || result.matchedCount === 0 || result.modifiedCount === 0) {
             throw new PropertyNotFound('ID');
         }
         res.status(200).send(result);

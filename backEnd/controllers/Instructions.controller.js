@@ -82,7 +82,7 @@ exports.updateInstruction = async (req, res, next) => {
         }
         const { body: Instruction, params: { id } } = req;
         const result = await update(id, Instruction);
-        if (!result || result.matchedCount === 0) {
+        if (!result || result.matchedCount === 0 || result.modifiedCount === 0) {
             throw new PropertyNotFound('ID');
         }
 
