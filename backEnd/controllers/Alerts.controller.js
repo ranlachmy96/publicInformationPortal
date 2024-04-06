@@ -61,7 +61,9 @@ exports.createAlert = async (req, res, next) => {
         }
         const { body: Alert } = req;
         // eslint-disable-next-line no-underscore-dangle
+        if (!Alert._id) {
         Alert._id = await generateId();
+        }
         const result = await create(Alert);
         res.status(200).json(result || 'Alert added successfully');
     } catch (error) {
@@ -72,21 +74,21 @@ exports.createAlert = async (req, res, next) => {
 
 exports.updateAlert = async (req, res, next) => {
     try {
+        if (isNaN(req.params.id)) {
+            throw new InvalidData();
+        }
         if (JSON.stringify(req.body) === '{}') {
             throw new EntityNotFound('updated Alert data');
         }
         if (!req.params.id) {
             throw new PropertyNotFound('ID');
         }
-        if (isNaN(req.params.id)) {
-            throw new InvalidData();
-        }
-        const existingCase = await findById(req.params.id);
-        if (existingCase.length === 0) {
-            throw new PropertyNotFound(`Alert with id ${req.params.id}`);
-        }
+
         const { body: Alert, params: { id } } = req;
         const result = await update(id, Alert);
+        if (!result || Object.keys(result).length === 0) {
+            throw new PropertyNotFound(`Specific Alert data with id of ${req.params.id}`);
+        }
         res.status(200).send(result);
     } catch (error) {
         next(error);
@@ -98,13 +100,12 @@ exports.deleteAlert = async (req, res, next) => {
         if (isNaN(req.params.id)) {
             throw new InvalidData();
         }
-        const existingAlert = await findById(req.params.id);
-        if (existingAlert.length === 0) {
-            throw new PropertyNotFound(`Alert with id ${req.params.id}`);
-        }
         //add a check if doesn't exists
         const { params: { id } } = req;
         const result = await deleteById(id);
+        if (!result || Object.keys(result).length === 0) {
+            throw new PropertyNotFound(`Specific Alert data with id of ${req.params.id}`);
+        }
         res.status(200).send(result);
     } catch (error) {
         next(error);

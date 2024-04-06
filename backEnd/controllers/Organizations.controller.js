@@ -2,7 +2,7 @@ const {
     find, findById, create, update, deleteById,
 } = require('../repositories/Organizations.repository');
 const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
-const { PropertyExists, BodyNotSent } = require('../errors/400.errors');
+const { PropertyExists, BodyNotSent, InvalidData} = require('../errors/400.errors');
 
 
 const generateId = async () => {
@@ -41,9 +41,12 @@ exports.getAllOrganizations = async (req, res, next) => {
 
 exports.getOrganization = async (req, res, next) => {
     try {
+        if (isNaN(req.params.id)) {
+            throw new InvalidData();
+        }
         const result = await findById(req.params.id);
-        if (result.length === 0) {
-            throw new PropertyNotFound(`specific Organizations data with id of ${req.params.id}`);
+        if (!result || Object.keys(result).length === 0) {
+            throw new PropertyNotFound(`specific Instruction data with id of ${req.params.id}`);
         }
         res.status(200).json(result);
     } catch (error) {
@@ -58,7 +61,9 @@ exports.createOrganization = async (req, res, next) => {
         }
         const { body: Organization } = req;
         // eslint-disable-next-line no-underscore-dangle
-        Organization._id = await generateId();
+        if (!Organization._id) {
+            Organization._id = await generateId();
+        }
         const result = await create(Organization);
         res.status(200).json(result || 'Organization added successfully');
     } catch (error) {
@@ -69,19 +74,20 @@ exports.createOrganization = async (req, res, next) => {
 
 exports.updateOrganization = async (req, res, next) => {
     try {
+        if (isNaN(req.params.id)) {
+            throw new InvalidData();
+        }
         if (JSON.stringify(req.body) === '{}') {
             throw new EntityNotFound('updated Organization data');
         }
         if (!req.params.id) {
             throw new PropertyNotFound('ID');
         }
-        const existingCase = await findById(req.params.id);
-        if (existingCase.length === 0) {
-            throw new PropertyNotFound(`Organization with id ${req.params.id}`);
-        }
-
         const { body: Organization, params: { id } } = req;
         const result = await update(id, Organization);
+        if (!result || Object.keys(result).length === 0) {
+            throw new PropertyNotFound('ID');
+        }
         res.status(200).send(result);
     } catch (error) {
         next(error);
@@ -90,13 +96,15 @@ exports.updateOrganization = async (req, res, next) => {
 
 exports.deleteOrganization = async (req, res, next) => {
     try {
-        const existingOrganization = await findById(req.params.id);
-        if (existingOrganization.length === 0) {
-            throw new PropertyNotFound(`Organization with id ${req.params.id}`);
+        if (isNaN(req.params.id)) {
+            throw new InvalidData();
         }
         //add a check if doesnt exists
         const { params: { id } } = req;
         const result = await deleteById(id);
+        if (!result || Object.keys(result).length === 0) {
+            throw new PropertyNotFound('ID');
+        }
         res.status(200).send(result);
     } catch (error) {
         next(error);
