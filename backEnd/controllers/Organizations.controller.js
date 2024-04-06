@@ -85,7 +85,7 @@ exports.updateOrganization = async (req, res, next) => {
         }
         const { body: Organization, params: { id } } = req;
         const result = await update(id, Organization);
-        if (!result || Object.keys(result).length === 0) {
+        if (!result || result.matchedCount === 0) {
             throw new PropertyNotFound('ID');
         }
         res.status(200).send(result);
@@ -102,7 +102,7 @@ exports.deleteOrganization = async (req, res, next) => {
         //add a check if doesnt exists
         const { params: { id } } = req;
         const result = await deleteById(id);
-        if (!result || Object.keys(result).length === 0) {
+        if (!result || result.deletedCount === 0) {
             throw new PropertyNotFound('ID');
         }
         res.status(200).send(result);

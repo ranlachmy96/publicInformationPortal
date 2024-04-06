@@ -86,7 +86,7 @@ exports.updateAlert = async (req, res, next) => {
 
         const { body: Alert, params: { id } } = req;
         const result = await update(id, Alert);
-        if (!result || Object.keys(result).length === 0) {
+        if (!result || result.matchedCount === 0) {
             throw new PropertyNotFound(`Specific Alert data with id of ${req.params.id}`);
         }
         res.status(200).send(result);
@@ -103,7 +103,7 @@ exports.deleteAlert = async (req, res, next) => {
         //add a check if doesn't exists
         const { params: { id } } = req;
         const result = await deleteById(id);
-        if (!result || Object.keys(result).length === 0) {
+        if (!result || result.deletedCount === 0) {
             throw new PropertyNotFound(`Specific Alert data with id of ${req.params.id}`);
         }
         res.status(200).send(result);

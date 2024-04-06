@@ -636,3 +636,7 @@
 ::ffff:127.0.0.1 - - [06/Apr/2024:19:02:05 +0000] "DELETE /Alerts/abc HTTP/1.1" 400 9153 "-" "-"
 ::ffff:127.0.0.1 - - [06/Apr/2024:19:02:05 +0000] "DELETE /Alerts/1 HTTP/1.1" 404 431 "-" "-"
 ::ffff:127.0.0.1 - - [06/Apr/2024:19:02:05 +0000] "DELETE /Alerts/1 HTTP/1.1" 500 1963 "-" "-"
+::1 - - [06/Apr/2024:19:20:07 +0000] "DELETE /alerts/101 HTTP/1.1" 404 416 "-" "PostmanRuntime/7.36.3"
+::1 - - [06/Apr/2024:19:20:41 +0000] "PUT /alerts/100 HTTP/1.1" 200 92 "-" "PostmanRuntime/7.36.3"
+::1 - - [06/Apr/2024:19:20:57 +0000] "PUT /alerts/100 HTTP/1.1" 200 92 "-" "PostmanRuntime/7.36.3"
+::1 - - [06/Apr/2024:19:21:19 +0000] "PUT /alerts/100 HTTP/1.1" 404 415 "-" "PostmanRuntime/7.36.3"
