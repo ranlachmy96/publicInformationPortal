@@ -1,23 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import InfoCards from '../OrganizationComponents/infoCards.jsx'
-import Typography from '@mui/material/Typography';
+import InfoCards from '../OrganizationComponents/infoCards.jsx';
 import styled from 'styled-components';
 import { GetAllOrganizations } from '../../API/Organizations.api.js';
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Title = styled.h3`
+    margin-bottom: 10px;
+`;
+
+const Header = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    width: 85%;
+`;
+
+const Heading = styled.h2`
+    color: #486284;
+    font-weight: bold;
+    font-size: 33px;
+    margin: 0;
+    margin-top: 20px;
+`;
 
 const StyledDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-`
+`;
 
 const OrganizationPage = () => {
     const [organizations, setOrganizations] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch data from your API or database
         GetAllOrganizations()
             .then(data => {
                 setOrganizations(data);
@@ -30,20 +53,14 @@ const OrganizationPage = () => {
     }, []);
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-            <h3>Important Emergency Organizations</h3>
-            <div style={{display:"flex",justifyContent:'flex-start',width:"85%"}}>
-            <h2 style={{
-                color: '#486284',
-                fontWeight: 'bold',
-                fontSize: '33px',
-                margin: '0',
-                marginTop: '2%'
-            }}>Organizations List:</h2>
-            </div>
+        <Container>
+            <Title>Important Emergency Organizations</Title>
+            <Header>
+                <Heading>Organizations List:</Heading>
+            </Header>
             <StyledDiv>
                 {loading ? (
-                    <CircularProgress/>
+                    <CircularProgress />
                 ) : (
                     organizations.map(org => (
                         <InfoCards
@@ -56,7 +73,7 @@ const OrganizationPage = () => {
                     ))
                 )}
             </StyledDiv>
-        </div>
+        </Container>
     );
 };
 
