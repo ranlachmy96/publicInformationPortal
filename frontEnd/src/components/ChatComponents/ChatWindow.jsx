@@ -10,6 +10,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 import emergencyKeywords from './ChatWindowComponents/Keywords';
 import Message from './ChatWindowComponents/Message';
+import Validate from './messageValidator';
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
@@ -81,8 +82,11 @@ const ChatWindow = () => {
 
     const newMessages = [...messages, newMessage];
     setMessages(newMessages);
-
-    const isEmergencyRelated = checkEmergencyRelated(message);
+    let isEmergencyRelated = checkEmergencyRelated(message);
+    const validResault = await Validate(message);
+    if (validResault != 'error') {
+      isEmergencyRelated = validResault;
+    }
 
     try {
       if (isEmergencyRelated) {

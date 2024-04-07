@@ -121,7 +121,7 @@ export default function DashBoard() {
   };
 
   return (
-    <Box sx={{ display: 'flex',justifyContent:'center',position:'relative' }}>
+    <Box data-testid={'dashBoard'} sx={{ display: 'flex',justifyContent:'center',position:'relative' }}>
       <ChatModal />
       <CssBaseline />
       <AppBar position="fixed" open={open}>

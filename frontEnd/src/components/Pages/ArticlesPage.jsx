@@ -10,7 +10,7 @@ const ArticlesPage = () => {
     const { newsData, loading, error } = useFetchNews();
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <div data-testid={'articlePage'} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
                 Israeli Articles<br />From Around The Globe
             </Typography>

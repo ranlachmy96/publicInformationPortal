@@ -25,7 +25,7 @@ const Video = () => {
     return (
         <div>
             <Title text="Informational Video" />
-            <VideoContainer>
+            <VideoContainer data-testid={'video'}>
                 <ResponsiveIframe
                     src="https://www.youtube.com/embed/JqFqUCWsmLY?si=NejhOhEoYEvxcUEV"
                     title="YouTube video player"

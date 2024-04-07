@@ -17,7 +17,7 @@ const StyledDiv = styled.div`
 
 const HomePage = ({ handleItemClick }) => {
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+        <div data-testid={'homePage'} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
             <Typography style={{ fontWeight: 'bold' }} variant="h4" component="h2" gutterBottom>
                 Welcome to the Home Page
             </Typography>

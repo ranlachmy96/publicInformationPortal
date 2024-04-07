@@ -51,9 +51,9 @@ const Welcome = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setDisplayedIndex(prevIndex => (prevIndex + 1) % alerts.length);
-    }, 3000); // Change this interval as needed
+    }, 3000);
 
-    return () => clearInterval(interval); // Clean up the interval on component unmount
+    return () => clearInterval(interval);
   }, [alerts.length]);
 
   const displayedAlerts = [
@@ -64,7 +64,7 @@ const Welcome = () => {
   ];
 
   return (
-    <div>
+    <div data-testid={'welcome'}>
       <StyledPaper elevation={3}>
         <ContentWrapper>
           <Typography style={{ marginTop: '15px', fontSize: '15px', fontWeight: 'bold' }} variant="h6" component="h2">

@@ -54,7 +54,7 @@ const SafetyInstructionPage = () => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+        <div data-testid={'safetyInstructionPage'} style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
             {loading ? ( // Display loading indicator if loading is true
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                     <CircularProgress />
