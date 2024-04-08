@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -30,6 +30,8 @@ import HomePage from './Pages/HomePage';
 import ArticlesPage from './Pages/ArticlesPage';
 import SafetyInstructionPage from './Pages/SafetyInstructionPage';
 import OrganizationPage from './Pages/OrganizationPage.jsx'
+
+import { CheckJwtAuth } from '../API/Users.api.js';
 
 const drawerWidth = 240;
 
@@ -109,7 +111,22 @@ export default function DashBoard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState('Home');
+  const [token, setToken] = React.useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = CheckJwtAuth(navigate);
+
+    if (user) {
+      console.log('User is logged in: ', user);
+    }
+
+    const intervalId = setInterval(() => {
+      CheckJwtAuth(navigate);
+    }, 60000);
+
+    return () => clearInterval(intervalId);
+  }, [navigate]);
 
   const handleDrawerOpen = () => {
     setOpen(true);

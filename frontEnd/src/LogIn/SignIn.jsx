@@ -44,7 +44,6 @@ export default function SignIn() {
       password: data.get('password'),
     };
     const user = await LogIn(dataForm);
-    console.log('user: ', user);
     if (user) {
       navigate('/dashboard');
     }

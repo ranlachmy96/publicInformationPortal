@@ -36,6 +36,7 @@ exports.LogIn = async (req, res, next) => {
         if (result.length === 0) {
             throw new EntityNotFound('Users data');
         }
+        console.log('resulat: ', result)
 
         const user = result.find((user) => user.user_name === req.body.user_name);
         if (!user) {
@@ -46,8 +47,8 @@ exports.LogIn = async (req, res, next) => {
             throw new PropertyNotFound('User');
         }
 
-        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '1h' });
-        user.token = token;
+        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '3m' });
+        res.cookie('token', token, { httpOnly: true });
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -80,6 +81,20 @@ exports.SignUp = async (req, res, next) => {
         await create(newUser);
         res.status(201).json(newUser);
     } catch (error) {
+        next(error);
+    }
+};
+
+exports.CheckJwtAuth = async (req, res, next) => {
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            throw new PropertyNotFound('Token');
+        }
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
+        res.status(200).json(decoded);
+    } catch (error) {
+        res.clearCookie('token');
         next(error);
     }
 };
