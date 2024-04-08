@@ -50,7 +50,6 @@ exports.LogIn = async (req, res, next) => {
 
         const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '3m' });
         const tokenized_user = { user, token };
-        console.log('user: ', tokenized_user);
         res.body = tokenized_user;
         // res.cookie('token', token, { httpOnly: true });
         res.status(200).json(tokenized_user);
@@ -92,8 +91,10 @@ exports.SignUp = async (req, res, next) => {
 exports.CheckJwtAuth = async (req, res, next) => {
     try {
         // const token = req.cookies.token;
-        
+        const token = req.body.token;
+        console.log('token: ', token)
 
+        console.log('req.body: ', req.body)
         if (!token) {
             throw new PropertyNotFound('Token');
         }

@@ -44,10 +44,8 @@ export default function SignIn() {
       password: data.get('password'),
     };
     const user = await LogIn(dataForm);
-    console.log('user: ', user);
     localStorage.setItem('token', user.token);
-    const token = localStorage.getItem('token');
-    console.log('Token 0: ', token);
+
     if (user) {
       navigate('/dashboard');
     }
