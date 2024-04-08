@@ -3,6 +3,7 @@ const {
 } = require('../repositories/Users.repository');
 const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
 const { PropertyExists, BodyNotSent, InvalidData } = require('../errors/400.errors');
+const bcrypt = require('bcryptjs');
 
 
 const generateId = async () => {
@@ -28,15 +29,20 @@ const generateId = async () => {
 
 exports.LogIn = async (req, res, next) => {
     try {
-        if (!req.body.username || !req.body.password) {
+        if (!req.body.user_name || !req.body.password) {
             throw new BodyNotSent();
         }
         const result = await find();
         if (result.length === 0) {
             throw new EntityNotFound('Users data');
         }
-        const user = result.find((user) => user.username === req.body.username && user.password === req.body.password);
+
+        const user = result.find((user) => user.user_name === req.body.user_name);
         if (!user) {
+            throw new PropertyNotFound('User');
+        }
+        const match = await bcrypt.compare(req.body.password, user.password);
+        if (!match) {
             throw new PropertyNotFound('User');
         }
         res.status(200).json(user);
@@ -47,21 +53,26 @@ exports.LogIn = async (req, res, next) => {
 
 exports.SignUp = async (req, res, next) => {
     try {
-        if (!req.body.username || !req.body.password) {
+        console.log(req.body.user_name, req.body.password);
+        if (!req.body.user_name || !req.body.password || !req.body.admin) {
+            console.log("error here");
             throw new BodyNotSent();
         }
         const result = await find();
         if (result.length === 0) {
             throw new EntityNotFound('Users data');
         }
-        const user = result.find((user) => user.username === req.body.username);
+        const user = result.find((user) => user.user_name === req.body.user_name);
         if (user) {
             throw new PropertyExists('User');
         }
+        const hashed_password = await bcrypt.hash(req.body.password, 10);
+        req.body.password = hashed_password;
         const newUser = {
             _id: await generateId(),
-            username: req.body.username,
+            user_name: req.body.user_name,
             password: req.body.password,
+            admin: req.body.admin
         };
         await create(newUser);
         res.status(201).json(newUser);
