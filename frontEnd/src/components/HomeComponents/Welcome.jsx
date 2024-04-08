@@ -36,17 +36,17 @@ const InnerPaper = styled(Paper)`
 const StyledLi = styled.li`
   margin-bottom: 2%;
   color: ${props => {
-    switch (props.priority) {
-      case 'Low':
-        return 'green';
-      case 'Medium':
-        return 'orange';
-      case 'High':
-        return 'red';
-      default:
-        return 'black';
-    }
-  }};
+  switch (props.priority) {
+    case 'Low':
+      return 'green';
+    case 'Medium':
+      return 'orange';
+    case 'High':
+      return 'red';
+    default:
+      return 'black';
+  }
+}};
 `;
 
 const scroll = keyframes`
@@ -117,7 +117,10 @@ const Welcome = () => {
                 <StyledUl>
                   <ScrollingContainer>
                     {alerts.map((alert, index) => (
-                        <StyledLi key={index} priority={alert.priority}>{alert.description}</StyledLi>
+                        <StyledLi key={index} priority={alert.priority}>
+                          <div>{alert.description}</div>
+                          <div>{alert.date}</div>
+                        </StyledLi>
                     ))}
                   </ScrollingContainer>
                 </StyledUl>
