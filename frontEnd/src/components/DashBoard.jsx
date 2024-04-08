@@ -35,8 +35,10 @@ import SafetyInstructionPage from './Pages/SafetyInstructionPage';
 import OrganizationPage from './Pages/OrganizationPage.jsx'
 import AlertsPage from './Pages/AlertsPage.jsx'
 import AddAlertsPage from './Pages/AddAlertsPage.jsx'
+import ResourcesPage from './Pages/ResourcesPage.jsx'
 
 import { CheckJwtAuth } from '../API/Users.api.js';
+
 
 const drawerWidth = 240;
 
@@ -198,7 +200,7 @@ export default function DashBoard() {
             { text: 'Articles', page: 'Articles' },
             { text: 'Safety Instruction', page: 'Safety Instruction' },
             { text: 'Organizations', page: 'Organizations' },
-            { text: 'Inventory', page: 'Inventory' },
+            { text: 'Resources', page: 'Resources' },
             { text: 'Alerts', page: 'Alerts' },
             { text: 'Add New Alert', page: 'Add New Alert' },
           ].map(({ text, page }, index) => (
@@ -235,6 +237,7 @@ export default function DashBoard() {
         {currentPage === 'Organizations' && <OrganizationPage />}
         {currentPage === 'Alerts' && <AlertsPage />}
         {currentPage === 'Add New Alert' && <AddAlertsPage />}
+        {currentPage === 'Resources' && <ResourcesPage/>}
       </Box>
     </Box>
   );

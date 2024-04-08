@@ -106,7 +106,7 @@ const Welcome = () => {
                 <StyledUl>
                   <ScrollingContainer>
                     {alerts.map((alert, index) => (
-                        <StyledLi key={index} priority={alert.priority}>
+                        <StyledLi key={index} >
                           <div>{alert.description}</div>
                           <div>{alert.date}</div>
                         </StyledLi>
