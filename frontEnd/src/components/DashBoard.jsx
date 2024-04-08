@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+
+import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -24,12 +25,16 @@ import ArticleIcon from '@mui/icons-material/Article';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import BusinessIcon from '@mui/icons-material/Business';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AddAlertIcon from '@mui/icons-material/AddAlert';
 import ChatModal from './ChatComponents/ChatModal';
 
 import HomePage from './Pages/HomePage';
 import ArticlesPage from './Pages/ArticlesPage';
 import SafetyInstructionPage from './Pages/SafetyInstructionPage';
 import OrganizationPage from './Pages/OrganizationPage.jsx'
+import AlertsPage from './Pages/AlertsPage.jsx'
+import AddAlertsPage from './Pages/AddAlertsPage.jsx'
 
 import { CheckJwtAuth } from '../API/Users.api.js';
 
@@ -41,6 +46,8 @@ const iconsDict = {
   2: <HealthAndSafetyIcon />,
   3: <BusinessIcon />,
   4: <InventoryIcon />,
+  5: <NotificationsIcon />,
+  6: <AddAlertIcon />,
 };
 
 const openedMixin = (theme) => ({
@@ -193,6 +200,8 @@ export default function DashBoard() {
             { text: 'Safety Instruction', page: 'Safety Instruction' },
             { text: 'Organizations', page: 'Organizations' },
             { text: 'Inventory', page: 'Inventory' },
+            { text: 'Alerts', page: 'Alerts' },
+            { text: 'Add New Alert', page: 'Add New Alert' },
           ].map(({ text, page }, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -225,6 +234,8 @@ export default function DashBoard() {
         {currentPage === 'Articles' && <ArticlesPage />}
         {currentPage === 'Safety Instruction' && <SafetyInstructionPage />}
         {currentPage === 'Organizations' && <OrganizationPage />}
+        {currentPage === 'Alerts' && <AlertsPage />}
+        {currentPage === 'Add New Alert' && <AddAlertsPage />}
       </Box>
     </Box>
   );
