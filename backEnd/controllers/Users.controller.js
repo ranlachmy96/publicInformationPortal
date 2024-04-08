@@ -4,7 +4,7 @@ const {
 const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
 const { PropertyExists, BodyNotSent, InvalidData } = require('../errors/400.errors');
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken');
 
 const generateId = async () => {
     try {
@@ -45,6 +45,9 @@ exports.LogIn = async (req, res, next) => {
         if (!match) {
             throw new PropertyNotFound('User');
         }
+
+        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '1h' });
+        user.token = token;
         res.status(200).json(user);
     } catch (error) {
         next(error);

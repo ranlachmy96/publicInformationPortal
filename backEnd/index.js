@@ -3,6 +3,7 @@ const express = require('express');
 const {logger, loggerDev} = require('./loggers/logger');
 const { Server } = require("socket.io");
 const http= require("http");
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 // const { errorHandler } = require('./middlewares/errorHandler');
 const { InstructionsRouter } = require('./routers/InstructionsRouter.router');
@@ -20,6 +21,7 @@ app.use(cors({
   credentials: true 
 }));
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);

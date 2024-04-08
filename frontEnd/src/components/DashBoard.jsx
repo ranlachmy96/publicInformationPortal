@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -16,6 +17,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -107,6 +109,7 @@ export default function DashBoard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState('Home');
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,8 +123,13 @@ export default function DashBoard() {
     setCurrentPage(page);
   };
 
+  const handleLogout = () => {
+    console.log('Logging out...');
+    navigate('/');
+  };
+
   return (
-    <Box data-testid={'dashBoard'} sx={{ display: 'flex',justifyContent:'center',position:'relative' }}>
+    <Box data-testid={'dashBoard'} sx={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
       <ChatModal />
       <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -141,6 +149,17 @@ export default function DashBoard() {
           <Typography variant="h6" noWrap component="div">
             {currentPage} Page
           </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="logout"
+            onClick={handleLogout}
+            edge="end"
+            sx={{
+              marginLeft: 'auto',
+            }}
+          >
+            <LogoutIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -185,7 +204,7 @@ export default function DashBoard() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick}/>}
+        {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick} />}
         {currentPage === 'Articles' && <ArticlesPage />}
         {currentPage === 'Safety Instruction' && <SafetyInstructionPage />}
         {currentPage === 'Organizations' && <OrganizationPage />}
