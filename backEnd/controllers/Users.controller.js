@@ -87,6 +87,7 @@ exports.SignUp = async (req, res, next) => {
 
 exports.CheckJwtAuth = async (req, res, next) => {
     try {
+        console.log('request: ', req)
         const token = req.cookies.token;
         console.log('cookies: ', req.cookies)
         console.log('token: ', token);
