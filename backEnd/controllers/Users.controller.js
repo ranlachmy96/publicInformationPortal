@@ -50,6 +50,8 @@ exports.LogIn = async (req, res, next) => {
 
         const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '3m' });
         user.token = token;
+        console.log('user: ', user);
+        res.body = user;
         // res.cookie('token', token, { httpOnly: true });
         res.status(200).json(user);
     } catch (error) {

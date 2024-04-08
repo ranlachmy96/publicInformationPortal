@@ -21,7 +21,7 @@ export async function LogIn(formData) {
 export async function CheckJwtAuth(navigate) {
     try {
         const token = localStorage.getItem('token');
-        console.log("Token: ", token);
+        console.log("Token 2: ", token);
         const promise = await axios.post(`${baseUrl}/Users/CheckJwtAuth`);
         if (promise.status === 200) {
             return promise.data;

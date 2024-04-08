@@ -121,6 +121,8 @@ export default function DashBoard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('Token 1: ', token);
     const user = CheckJwtAuth(navigate);
 
     if (user) {
