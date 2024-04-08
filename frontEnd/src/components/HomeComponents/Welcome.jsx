@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import { GetAllAlerts } from '../../API/Alerts.api';
 
 const StyledPaper = styled(Paper)`
   width: 80vw;
@@ -34,58 +35,97 @@ const InnerPaper = styled(Paper)`
 
 const StyledLi = styled.li`
   margin-bottom: 2%;
-  animation: slide-up 1s ease infinite alternate; /* Animation added */
+  color: ${props => {
+    switch (props.priority) {
+      case 'Low':
+        return 'green';
+      case 'Medium':
+        return 'orange';
+      case 'High':
+        return 'red';
+      default:
+        return 'black';
+    }
+  }};
+`;
+
+const scroll = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-100% * 1.3));
+  }
 `;
 
 const StyledUl = styled.ul`
   margin: 5%;
   text-align: left;
+  overflow: hidden;
+  position: relative;
+  height: 160px; /* Adjust the height as needed */
 `;
 
-
+const ScrollingContainer = styled.div`
+  animation: ${scroll} 5s linear infinite; /* Change animation duration to 5 seconds */
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+`;
 
 const Welcome = () => {
-  const alerts = ['Alert 1', 'Alert 2', 'Alert 3', 'Alert 4', 'Alert 5', 'Alert 6', 'Alert 7'];
-  const [displayedIndex, setDisplayedIndex] = useState(0);
+  const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedAlerts = await GetAllAlerts();
+        setAlerts(fetchedAlerts);
+      } catch (error) {
+        console.error('Error fetching alerts:', error);
+      }
+    };
+    fetchData();
+
     const interval = setInterval(() => {
-      setDisplayedIndex(prevIndex => (prevIndex + 1) % alerts.length);
+      setAlerts(prevAlerts => {
+        const newAlerts = [...prevAlerts];
+        newAlerts.push(newAlerts.shift()); // Rotate alerts array
+        return newAlerts;
+      });
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [alerts.length]);
-
-  const displayedAlerts = [
-    alerts[displayedIndex],
-    alerts[(displayedIndex + 1) % alerts.length],
-    alerts[(displayedIndex + 2) % alerts.length],
-    alerts[(displayedIndex + 3) % alerts.length],
-  ];
+  }, []);
 
   return (
-    <div data-testid={'welcome'}>
-      <StyledPaper elevation={3}>
-        <ContentWrapper>
-          <Typography style={{ marginTop: '15px', fontSize: '15px', fontWeight: 'bold' }} variant="h6" component="h2">
-            Stay Informed, Stay Safe<br />
-            “tarzan”
-          </Typography>
-          <InnerPaper>
-            <div style={{ margin: '3%' }}>
-              <Typography style={{ fontSize: '24px', fontWeight: 'bold' }} variant="h5" component="h2" gutterBottom>
-                Active Alerts
-              </Typography>
-              <StyledUl>
-                {displayedAlerts.map((alert, index) => (
-                  <StyledLi key={index}>{alert}</StyledLi>
-                ))}
-              </StyledUl>
-            </div>
-          </InnerPaper>
-        </ContentWrapper>
-      </StyledPaper>
-    </div>
+      <div data-testid={'welcome'}>
+        <StyledPaper elevation={3}>
+          <ContentWrapper>
+            <Typography style={{ marginTop: '15px', fontSize: '15px', fontWeight: 'bold' }} variant="h6" component="h2">
+              Stay Informed, Stay Safe<br />
+              “Eido Peretz & Ran Lachmy”
+            </Typography>
+            <InnerPaper>
+              <div style={{ margin: '3%' }}>
+                <Typography style={{ fontSize: '24px', fontWeight: 'bold' }} variant="h5" component="h2" gutterBottom>
+                  Active Alerts
+                </Typography>
+                <StyledUl>
+                  <ScrollingContainer>
+                    {alerts.map((alert, index) => (
+                        <StyledLi key={index} priority={alert.priority}>{alert.description}</StyledLi>
+                    ))}
+                  </ScrollingContainer>
+                </StyledUl>
+              </div>
+            </InnerPaper>
+          </ContentWrapper>
+        </StyledPaper>
+      </div>
   );
 };
 
