@@ -92,9 +92,6 @@ exports.CheckJwtAuth = async (req, res, next) => {
     try {
         // const token = req.cookies.token;
         const token = req.body.token;
-        console.log('token: ', token)
-
-        console.log('req.body: ', req.body)
         if (!token) {
             throw new PropertyNotFound('Token');
         }
