@@ -48,7 +48,7 @@ exports.LogIn = async (req, res, next) => {
             throw new PropertyNotFound('User');
         }
 
-        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '3m' });
+        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '30m' });
         const tokenized_user = { user, token };
         res.body = tokenized_user;
         // res.cookie('token', token, { httpOnly: true });
@@ -66,10 +66,12 @@ exports.SignUp = async (req, res, next) => {
             throw new BodyNotSent();
         }
         const result = await find();
+        console.log('result: ', result);
         if (result.length === 0) {
             throw new EntityNotFound('Users data');
         }
         const user = result.find((user) => user.user_name === req.body.user_name);
+        console.log('user: ', user);
         if (user) {
             throw new PropertyExists('User');
         }
@@ -81,6 +83,7 @@ exports.SignUp = async (req, res, next) => {
             password: req.body.password,
             admin: req.body.admin
         };
+        console.log('newUser: ', newUser);
         await create(newUser);
         res.status(201).json(newUser);
     } catch (error) {

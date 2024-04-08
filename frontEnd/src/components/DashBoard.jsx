@@ -120,6 +120,10 @@ export default function DashBoard() {
   const [currentPage, setCurrentPage] = React.useState('Home');
   const navigate = useNavigate();
 
+  if (!localStorage.getItem('token')) {
+    navigate('/');
+  }
+
   useEffect(() => {
 
     const user = CheckJwtAuth(navigate);
@@ -149,6 +153,7 @@ export default function DashBoard() {
 
   const handleLogout = () => {
     console.log('Logging out...');
+    localStorage.removeItem('token');
     navigate('/');
   };
 
