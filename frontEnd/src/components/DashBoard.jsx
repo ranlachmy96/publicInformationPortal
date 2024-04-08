@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -118,7 +118,6 @@ export default function DashBoard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState('Home');
-  const [token, setToken] = React.useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
