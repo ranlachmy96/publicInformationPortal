@@ -23,6 +23,7 @@ const generateId = async () => {
         return maxId + 1;
     } catch (error) {
         console.error('Error generating ID:', error);
+
         throw error;
     }
 };
@@ -47,9 +48,11 @@ exports.LogIn = async (req, res, next) => {
             throw new PropertyNotFound('User');
         }
 
-        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '3m' });
-        res.cookie('token', token, { httpOnly: true });
-        res.status(200).json(user);
+        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '30m' });
+        const tokenized_user = { user, token };
+        res.body = tokenized_user;
+        // res.cookie('token', token, { httpOnly: true });
+        res.status(200).json(tokenized_user);
     } catch (error) {
         next(error);
     }
@@ -57,16 +60,19 @@ exports.LogIn = async (req, res, next) => {
 
 exports.SignUp = async (req, res, next) => {
     try {
-        console.log(req.body.user_name, req.body.password);
-        if (!req.body.user_name || !req.body.password || !req.body.admin) {
+        console.log('req.body: ', req.body);
+        console.log(req.body.user_name, req.body.password, req.body.admin);
+        if (!req.body.user_name || !req.body.password || req.body.admin === undefined) {
             console.log("error here");
             throw new BodyNotSent();
         }
         const result = await find();
+        console.log('result: ', result);
         if (result.length === 0) {
             throw new EntityNotFound('Users data');
         }
         const user = result.find((user) => user.user_name === req.body.user_name);
+        console.log('user: ', user);
         if (user) {
             throw new PropertyExists('User');
         }
@@ -78,6 +84,7 @@ exports.SignUp = async (req, res, next) => {
             password: req.body.password,
             admin: req.body.admin
         };
+        console.log('newUser: ', newUser);
         await create(newUser);
         res.status(201).json(newUser);
     } catch (error) {
@@ -87,15 +94,12 @@ exports.SignUp = async (req, res, next) => {
 
 exports.CheckJwtAuth = async (req, res, next) => {
     try {
-        console.log('request: ', req)
-        const token = req.cookies.token;
-        console.log('cookies: ', req.cookies)
-        console.log('token: ', token);
+        // const token = req.cookies.token;
+        const token = req.body.token;
         if (!token) {
             throw new PropertyNotFound('Token');
         }
         const decoded = jwt.verify(token, process.env.JWT_KEY);
-        console.log('decoded: ', decoded);
         res.status(200).json(decoded);
     } catch (error) {
         res.clearCookie('token');
