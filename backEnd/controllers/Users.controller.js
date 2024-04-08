@@ -88,10 +88,13 @@ exports.SignUp = async (req, res, next) => {
 exports.CheckJwtAuth = async (req, res, next) => {
     try {
         const token = req.cookies.token;
+        console.log('cookies: ', req.cookies)
+        console.log('token: ', token);
         if (!token) {
             throw new PropertyNotFound('Token');
         }
         const decoded = jwt.verify(token, process.env.JWT_KEY);
+        console.log('decoded: ', decoded);
         res.status(200).json(decoded);
     } catch (error) {
         res.clearCookie('token');
