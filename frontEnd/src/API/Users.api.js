@@ -20,6 +20,8 @@ export async function LogIn(formData) {
 
 export async function CheckJwtAuth(navigate) {
     try {
+        const token = localStorage.getItem('token');
+        console.log("Token: ", token);
         const promise = await axios.post(`${baseUrl}/Users/CheckJwtAuth`);
         if (promise.status === 200) {
             return promise.data;
@@ -27,7 +29,7 @@ export async function CheckJwtAuth(navigate) {
             return null;
         }
     } catch (error) {
-        console.log("Cookie Cleared: ", error);
+        console.log("Expired: ", error);
         navigate('/');
     }
 }

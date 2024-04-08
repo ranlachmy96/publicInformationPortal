@@ -34,9 +34,9 @@ const HomePage = ({ handleItemClick }) => {
                     <InfoOptionCard icon={3} title="Resources" text="Information about available resources, recourse options, and demand." page={'Inventory'} handleItemClick={handleItemClick} />
                 </StyledDiv>
             </div>
-            <div style={{ width: '100%' }}>
+            {/* <div style={{ width: '100%' }}>
                 <Video />
-            </div>
+            </div> */}
         </div>
     );
 };

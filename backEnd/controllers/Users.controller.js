@@ -23,6 +23,7 @@ const generateId = async () => {
         return maxId + 1;
     } catch (error) {
         console.error('Error generating ID:', error);
+
         throw error;
     }
 };
@@ -48,7 +49,8 @@ exports.LogIn = async (req, res, next) => {
         }
 
         const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '3m' });
-        res.cookie('token', token, { httpOnly: true });
+        user.token = token;
+        // res.cookie('token', token, { httpOnly: true });
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -87,15 +89,13 @@ exports.SignUp = async (req, res, next) => {
 
 exports.CheckJwtAuth = async (req, res, next) => {
     try {
-        console.log('request: ', req)
-        const token = req.cookies.token;
-        console.log('cookies: ', req.cookies)
-        console.log('token: ', token);
+        // const token = req.cookies.token;
+        
+
         if (!token) {
             throw new PropertyNotFound('Token');
         }
         const decoded = jwt.verify(token, process.env.JWT_KEY);
-        console.log('decoded: ', decoded);
         res.status(200).json(decoded);
     } catch (error) {
         res.clearCookie('token');
