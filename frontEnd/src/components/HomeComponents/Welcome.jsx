@@ -35,18 +35,7 @@ const InnerPaper = styled(Paper)`
 
 const StyledLi = styled.li`
   margin-bottom: 2%;
-  color: ${props => {
-    switch (props.priority) {
-      case 'Low':
-        return 'green';
-      case 'Medium':
-        return 'orange';
-      case 'High':
-        return 'red';
-      default:
-        return 'black';
-    }
-  }};
+  max-width: 90%; /* Adjust the max-width as needed */
 `;
 
 const scroll = keyframes`
@@ -63,11 +52,11 @@ const StyledUl = styled.ul`
   text-align: left;
   overflow: hidden;
   position: relative;
-  height: 160px; /* Adjust the height as needed */
+  height: 160px; 
 `;
 
 const ScrollingContainer = styled.div`
-  animation: ${scroll} 5s linear infinite; /* Change animation duration to 5 seconds */
+  animation: ${scroll} 7s ease-in-out infinite; 
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -117,7 +106,10 @@ const Welcome = () => {
                 <StyledUl>
                   <ScrollingContainer>
                     {alerts.map((alert, index) => (
-                        <StyledLi key={index} priority={alert.priority}>{alert.description}</StyledLi>
+                        <StyledLi key={index} priority={alert.priority}>
+                          <div>{alert.description}</div>
+                          <div>{alert.date}</div>
+                        </StyledLi>
                     ))}
                   </ScrollingContainer>
                 </StyledUl>
