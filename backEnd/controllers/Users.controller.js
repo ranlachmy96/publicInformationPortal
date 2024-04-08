@@ -60,7 +60,8 @@ exports.LogIn = async (req, res, next) => {
 
 exports.SignUp = async (req, res, next) => {
     try {
-        console.log(req.body.user_name, req.body.password);
+        console.log('req.body: ', req.body);
+        console.log(req.body.user_name, req.body.password, req.body.admin);
         if (!req.body.user_name || !req.body.password || !req.body.admin) {
             console.log("error here");
             throw new BodyNotSent();
