@@ -4,7 +4,6 @@ const {
 const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
 const { InvalidData, BodyNotSent } = require('../errors/400.errors');
 
-
 const generateId = async () => {
     try {
         const Alerts = await find();
@@ -25,7 +24,6 @@ const generateId = async () => {
         throw error;
     }
 };
-
 
 exports.getAllAlerts = async (req, res, next) => {
     try {
@@ -71,7 +69,6 @@ exports.createAlert = async (req, res, next) => {
     }
 };
 
-
 exports.updateAlert = async (req, res, next) => {
     try {
         if (isNaN(req.params.id)) {
@@ -83,7 +80,6 @@ exports.updateAlert = async (req, res, next) => {
         if (!req.params.id) {
             throw new PropertyNotFound('ID');
         }
-
         const { body: Alert, params: { id } } = req;
         const result = await update(id, Alert);
         if (!result || result.matchedCount === 0) {

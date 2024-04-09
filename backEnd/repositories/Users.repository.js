@@ -9,10 +9,7 @@ if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASS) {
 }
 
 const find = () => (storage ? storage.find() : null);
-// const findById = (id) => (storage ? storage.findById(id) : null);
 const create = (Alert) => (storage ? storage.create(Alert) : null);
-// const update = (id, Alert) => (storage ? storage.update(id, Alert) : null);
-// const deleteById = (id) => (storage ? storage.delete(id) : null);
 
 module.exports = {
     find, create

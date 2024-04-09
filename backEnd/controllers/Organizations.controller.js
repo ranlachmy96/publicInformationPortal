@@ -4,7 +4,6 @@ const {
 const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
 const { PropertyExists, BodyNotSent, InvalidData} = require('../errors/400.errors');
 
-
 const generateId = async () => {
     try {
         const Organizations = await find();
@@ -25,7 +24,6 @@ const generateId = async () => {
         throw error;
     }
 };
-
 
 exports.getAllOrganizations = async (req, res, next) => {
     try {

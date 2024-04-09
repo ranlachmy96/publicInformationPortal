@@ -8,4 +8,3 @@ const AlertsSchema = new Schema({
 }, { collection: 'Alerts' });
 
 module.exports = model('Alerts', AlertsSchema);
-

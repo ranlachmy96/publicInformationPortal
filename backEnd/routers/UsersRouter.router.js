@@ -10,5 +10,4 @@ UsersRouter.post('/LogIn', LogIn);
 UsersRouter.post('/SignUp', SignUp);
 UsersRouter.post('/CheckJwtAuth', CheckJwtAuth);
 
-
 module.exports = { UsersRouter };
