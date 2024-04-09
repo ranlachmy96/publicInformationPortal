@@ -96,12 +96,12 @@ exports.updateInstruction = async (req, res, next) => {
 
 exports.deleteInstruction = async (req, res, next) => {
     try {
+        console.log('req.params.id: ',req.params.id);
         if (isNaN(req.params.id)) {
             throw new InvalidData();
         }
-        //add a check if doesnt exists
         const { params: { id } } = req;
-        console.log(id);
+        console.log('id: ',id);
         if(id === undefined || id === null || id === ''){
             throw new InvalidData();
         }
