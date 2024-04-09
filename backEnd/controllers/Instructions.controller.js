@@ -101,6 +101,9 @@ exports.deleteInstruction = async (req, res, next) => {
         }
         //add a check if doesnt exists
         const { params: { id } } = req;
+        if (id == '') {
+            throw new InvalidData();
+        }
         const result = await deleteById(id);
         if (!result || result.deletedCount === 0) {
             throw new PropertyNotFound('ID');
