@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import styled from "styled-components";
 import { PieChart } from '@mui/x-charts/PieChart';
 import ResourceCard from '../ResourceComponents/ResourceCard.jsx';
-import { fetchCampaigns } from '../../API/Campaigns.api.js';
+import { GetAllCampaigns } from '../../API/Campaigns.api.js';
 import Title from '../Title';
 
 const Titles = styled.h3`
@@ -62,7 +62,7 @@ const ResourcesPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const campaignsData = await fetchCampaigns();
+                const campaignsData = await GetAllCampaigns();
                 setCampaigns(campaignsData);
                 countCampaignsByCategory(campaignsData);
             } catch (error) {

@@ -1,10 +1,17 @@
+/***************************************************************
+ * Import Dependencies
+ ***************************************************************/
 import React, { useState, useEffect } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { GetAllInstructions } from '../../API/SafetyInstruction.api.js';
-
+/***************************************************************
+ * Component: SafetyInstructionPage
+ * - Renders a page displaying information about safety instructions during crisis
+ * - Fetches instructions data using GetAllInstructions
+ ***************************************************************/
 const SafetyInstructionPage = () => {
     const [value, setValue] = useState(0);
     const [categories, setCategories] = useState([]);
