@@ -1,17 +1,16 @@
-import axios from 'axios'
+import axios from "axios";
+const api = axios.create({baseURL: "https://server-2gwk.onrender.com",});
 
-axios.defaults.withCredentials = true;
-
-const baseUrl = "https://server-2gwk.onrender.com";
-
-export const GetAllCampaigns = async () => {
-    const res = await axios.get(baseUrl + "/campaigns", {withCredentials: true})
-    return res.data;
+const GetAllCampaigns = async () => {
+    const search = id || '';
+    const response = await api.get(/campaigns/${search});
+    return response.data;
 };
 
-export const GetCampaignsById = async (_id) => {
-    return await axios.get(`${baseUrl}/campaigns/${_id}`);
-};
+
+export { GetAllCampaigns };
+
+
 
 
 
