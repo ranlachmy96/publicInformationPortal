@@ -6,8 +6,9 @@ const ActionButton = ({func}) => {
 
     return (
         <div>
-            <Fab onClick={func} color="primary" aria-label="add" sx={{position:'fixed',bottom:'25px',right:'20px'}}>
-                <MessageIcon />
+            <Fab onClick={func} color="primary" aria-label="add"
+                 sx={{position: 'fixed', bottom: '25px', right: '20px'}}>
+                <MessageIcon/>
             </Fab>
         </div>
     );

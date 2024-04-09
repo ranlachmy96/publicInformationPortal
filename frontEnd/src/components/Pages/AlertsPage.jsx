@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,9 +17,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import LinearProgress from '@mui/material/LinearProgress';
-import { GetAllAlerts, deleteAlert, UpdateAlert } from '../../API/Alerts.api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import {GetAllAlerts, deleteAlert, UpdateAlert} from '../../API/Alerts.api';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 import {
     Dialog,
     DialogActions,
@@ -35,7 +35,7 @@ import {
 } from '@mui/material';
 
 function createData(_id, description, date, priority) {
-    return { _id, description, date, priority };
+    return {_id, description, date, priority};
 }
 
 export default function AlertsPage() {
@@ -48,9 +48,9 @@ export default function AlertsPage() {
     const [editedRowData, setEditedRowData] = useState(null);
 
     const priorityIcons = {
-        'Low': <FontAwesomeIcon icon={faExclamationTriangle} color="green" />,
-        'Medium': <FontAwesomeIcon icon={faExclamationTriangle} color="orange" />,
-        'High': <FontAwesomeIcon icon={faExclamationTriangle} color="red" />,
+        'Low': <FontAwesomeIcon icon={faExclamationTriangle} color="green"/>,
+        'Medium': <FontAwesomeIcon icon={faExclamationTriangle} color="orange"/>,
+        'High': <FontAwesomeIcon icon={faExclamationTriangle} color="red"/>,
     };
 
     const fetchData = async () => {
@@ -135,40 +135,40 @@ export default function AlertsPage() {
     const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
     return (
-        <div style={{width:'70vw'}}>
-            <TableContainer component={Paper} sx={{width: '100%' }}>
+        <div style={{width: '70vw'}}>
+            <TableContainer component={Paper} sx={{width: '100%'}}>
                 {loading && (
-                    <Box sx={{ width: '100%' }}>
-                        <LinearProgress />
+                    <Box sx={{width: '100%'}}>
+                        <LinearProgress/>
                     </Box>
                 )}
                 <Toolbar>
                     {selected.length > 0 ? (
-                        <Typography sx={{ flex: '1 1 100%' }} color="inherit" variant="subtitle1">
+                        <Typography sx={{flex: '1 1 100%'}} color="inherit" variant="subtitle1">
                             {selected.length} selected
                         </Typography>
                     ) : (
-                        <Typography sx={{ flex: '1 1 100%' }} variant="h6">
+                        <Typography sx={{flex: '1 1 100%'}} variant="h6">
                             Alerts
                         </Typography>
                     )}
                     {selected.length > 0 ? (
-                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <div style={{display: 'flex', flexDirection: 'row'}}>
                             <Tooltip title="Delete">
                                 <IconButton onClick={handleDeleteSelectedRows}>
-                                    <DeleteIcon />
+                                    <DeleteIcon/>
                                 </IconButton>
                             </Tooltip>
                             <Tooltip title="Edit">
                                 <IconButton onClick={handleEditSelectedRows}>
-                                    <EditIcon />
+                                    <EditIcon/>
                                 </IconButton>
                             </Tooltip>
                         </div>
                     ) : (
                         <Tooltip title="Filter list">
                             <IconButton>
-                                <FilterListIcon />
+                                <FilterListIcon/>
                             </IconButton>
                         </Tooltip>
                     )}
@@ -210,7 +210,7 @@ export default function AlertsPage() {
                                     <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={isItemSelected}
-                                            inputProps={{ 'aria-labelledby': row._id }}
+                                            inputProps={{'aria-labelledby': row._id}}
                                         />
                                     </TableCell>
                                     <TableCell>{row.description}</TableCell>
@@ -240,7 +240,7 @@ export default function AlertsPage() {
                         label="Description"
                         fullWidth
                         value={editedRowData ? editedRowData.description : ''}
-                        onChange={(e) => setEditedRowData({ ...editedRowData, description: e.target.value })}
+                        onChange={(e) => setEditedRowData({...editedRowData, description: e.target.value})}
                     />
                     <TextField
                         margin="dense"
@@ -249,20 +249,20 @@ export default function AlertsPage() {
                         type="date"
                         fullWidth
                         value={editedRowData ? editedRowData.date : ''}
-                        onChange={(e) => setEditedRowData({ ...editedRowData, date: e.target.value })}
+                        onChange={(e) => setEditedRowData({...editedRowData, date: e.target.value})}
                     />
-                    <FormControl component="fieldset" style={{ marginTop: 16 }}>
+                    <FormControl component="fieldset" style={{marginTop: 16}}>
                         <FormLabel component="legend">Priority</FormLabel>
                         <RadioGroup
                             row
                             aria-label="priority"
                             name="priority"
                             value={editedRowData ? editedRowData.priority : ''}
-                            onChange={(e) => setEditedRowData({ ...editedRowData, priority: e.target.value })}
+                            onChange={(e) => setEditedRowData({...editedRowData, priority: e.target.value})}
                         >
-                            <FormControlLabel value="Low" control={<Radio />} label="Low" />
-                            <FormControlLabel value="Medium" control={<Radio />} label="Medium" />
-                            <FormControlLabel value="High" control={<Radio />} label="High" />
+                            <FormControlLabel value="Low" control={<Radio/>} label="Low"/>
+                            <FormControlLabel value="Medium" control={<Radio/>} label="Medium"/>
+                            <FormControlLabel value="High" control={<Radio/>} label="High"/>
                         </RadioGroup>
                     </FormControl>
                 </DialogContent>

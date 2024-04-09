@@ -4,8 +4,8 @@ import Button from '../OrganizationComponents/organizationButton.jsx';
 
 const CardContainer = styled.div`
     width: 100%;
-    max-width: 400px; 
-    height: auto; 
+    max-width: 400px;
+    height: auto;
     background-color: #f1f1f1;
     display: flex;
     flex-direction: column;
@@ -51,17 +51,17 @@ const Phone = styled.p`
     font-size: 1rem;
 `;
 
-const InfoCards = ({ title, text, page, phone }) => {
+const InfoCards = ({title, text, page, phone}) => {
 
     return (
         <CardContainer>
             <TextContainer>
-                <Title data-testid={'title'} >{title}</Title>
-                <Text data-testid={'text'} >{text}</Text>
+                <Title data-testid={'title'}>{title}</Title>
+                <Text data-testid={'text'}>{text}</Text>
             </TextContainer>
             <RowContainer>
-                <Phone data-testid={'phone'} >Phone: {phone}</Phone>
-                <Button text={'Link'} page={page} />
+                <Phone data-testid={'phone'}>Phone: {phone}</Phone>
+                <Button text={'Link'} page={page}/>
             </RowContainer>
         </CardContainer>
     );

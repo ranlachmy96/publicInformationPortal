@@ -43,12 +43,12 @@ const Text = styled.p`
     margin-top: 5px;
 `;
 
-const InfoOptionCard = ({ icon, title, text, page, handleItemClick }) => {
+const InfoOptionCard = ({icon, title, text, page, handleItemClick}) => {
     const iconsDict = {
-        0: <ArticleIcon sx={{ width: '50px', height: '50px' }} />,
-        1: <HealthAndSafetyIcon sx={{ width: '50px', height: '50px' }} />,
-        2: <BusinessIcon sx={{ width: '50px', height: '50px' }} />,
-        3: <InventoryIcon sx={{ width: '50px', height: '50px' }} />,
+        0: <ArticleIcon sx={{width: '50px', height: '50px'}}/>,
+        1: <HealthAndSafetyIcon sx={{width: '50px', height: '50px'}}/>,
+        2: <BusinessIcon sx={{width: '50px', height: '50px'}}/>,
+        3: <InventoryIcon sx={{width: '50px', height: '50px'}}/>,
     };
 
     return (
@@ -58,7 +58,7 @@ const InfoOptionCard = ({ icon, title, text, page, handleItemClick }) => {
                 <Title>{title}</Title>
                 <Text>{text}</Text>
             </TextContainer>
-            <Button text={'here'} page={page} handleItemClick={handleItemClick} />
+            <Button text={'here'} page={page} handleItemClick={handleItemClick}/>
         </CardContainer>
     );
 };

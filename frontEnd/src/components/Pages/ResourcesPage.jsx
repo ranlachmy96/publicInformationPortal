@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import styled from "styled-components";
-import { PieChart } from '@mui/x-charts/PieChart';
+import {PieChart} from '@mui/x-charts/PieChart';
 import ResourceCard from '../ResourceComponents/ResourceCard.jsx';
-import { GetAllCampaigns } from '../../API/Campaigns.api.js';
+import {GetAllCampaigns} from '../../API/Campaigns.api.js';
 import Title from '../Title';
 
 const Titles = styled.h3`
@@ -61,7 +61,6 @@ const ResourcesPage = () => {
                 console.error("Error fetching data:", error);
             }
         };
-
         fetchData();
     }, []);
 
@@ -84,7 +83,7 @@ const ResourcesPage = () => {
             <Titles>Resources Information</Titles>
             <StyledDiv>
                 <InnerDiv>
-                    <img src="/Resources/Resource.png" alt="Resources" style={{ width: '100%' }} />
+                    <img src="/Resources/Resource.png" alt="Resources" style={{width: '100%'}}/>
                 </InnerDiv>
                 <InfoDiv>
                     <TitleHeader>Resources during crisis</TitleHeader>
@@ -96,7 +95,7 @@ const ResourcesPage = () => {
                         services, and livelihoods are disrupted or destroyed.</Description>
                 </InfoDiv>
             </StyledDiv>
-            <Box style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Box style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
                 {campaigns.map(campaign => (
                     <ResourceCard
                         key={campaign._id}
@@ -104,7 +103,7 @@ const ResourcesPage = () => {
                     />
                 ))}
             </Box>
-            <Title text="Most Donated Resources" />
+            <Title text="Most Donated Resources"/>
             <StyledDiv>
                 <div style={{
                     backgroundColor: '#F5F5F5',

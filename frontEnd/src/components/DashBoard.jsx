@@ -128,7 +128,7 @@ export default function DashBoard() {
     useEffect(() => {
         CheckJwtAuth(navigate)
             .then(user => {
-                const isAdmin = user.admin; 
+                const isAdmin = user.admin;
                 console.log('User is logged in: ', user);
                 console.log('Admin status: ', isAdmin);
                 setUserRole(isAdmin);

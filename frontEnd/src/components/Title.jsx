@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
     width: fit-content;
 `;
 
-const Title = ({ text }) => {
+const Title = ({text}) => {
     return (
         <StyledDiv>
             <Typography variant="h5" component="h2" gutterBottom>
