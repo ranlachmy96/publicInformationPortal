@@ -1,11 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -13,32 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-import { LogIn } from '../API/Users.api.js';
-
-const StyledButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: #1976d2;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.43;
-  letter-spacing: 0.01071em;
-  padding: 0;
-  text-decoration: underline;
-  text-decoration-color: rgba(25, 118, 210, 0.4);
-
-  &:hover {
-    text-decoration-color: inherit;
-    color: #747bff;
-  }
-
-  &:focus { 
-    text-decoration-color: inherit;
-    outline: none; 
-  }
-`;
+import { SignUpFunc } from '../API/Users.api.js';
 
 function Copyright(props) {
   return (
@@ -56,37 +29,26 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function SignUp() {
   const navigate = useNavigate(); // Initialize navigate hook
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const dataForm = {
-      user_name: data.get('userName'),
-      password: data.get('password'),
-    };
-    const user = await LogIn(dataForm);
-    localStorage.setItem('token', user.token);
-
-    if (user) {
-      navigate('/dashboard');
+    const formData = new FormData(event.currentTarget);
+    const data = {
+      user_name: formData.get('userName'),
+      password: formData.get('password'),
+      admin: true,
+    }
+    const response = await SignUpFunc(data);
+    if (response) {
+      navigate('/');
+    } else {
+      alert("User Name already exists");
     }
   }
 
-  async function handleGuest(event) {
-    event.preventDefault();
-    const dataForm = {
-      user_name: 'Guest',
-      password: '123',
-    };
-    const user = await LogIn(dataForm);
-    localStorage.setItem('token', user.token);
 
-    if (user) {
-      navigate('/dashboard');
-    }
-  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -104,7 +66,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -133,21 +95,13 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
-            <Grid container>
-              <Grid sx={{ display: 'flex' }} item xs>
-                <StyledButton onClick={handleGuest} variant="body2">
-                  Enter as Guest
-                </StyledButton>
-              </Grid>
-              <Grid item>
-                <Link href="/signUp" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
+
           </Box>
+          <Link href="/" variant="body2">
+            {"Already have an account? Sign In"}
+          </Link>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

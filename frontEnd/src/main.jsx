@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-dom'; // Import useNavigate
 import SignIn from './LogIn/SignIn.jsx';
+import SignUp from './LogIn/SignUp.jsx';
 import DashBoard from './components/DashBoard';
 import './index.css';
 import './App.css';
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <SignIn />,
+  },
+  {
+    path: '/signUp',
+    element: <SignUp />,
   },
   {
     path: '/dashboard',
