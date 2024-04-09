@@ -31,7 +31,7 @@ exports.getAllAlerts = async (req, res, next) => {
     try {
         const result = await find();
         if (result.length === 0) {
-            throw new EntityNotFound('Alerts data');
+            throw new EntityNotFound('Alerts data');    
         }
         res.status(200).json(result);
     } catch (error) {

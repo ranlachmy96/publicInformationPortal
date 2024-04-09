@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -57,7 +57,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const navigate = useNavigate(); // Initialize navigate hook
+  const [errorMsg, setErrorMsg] = useState(''); 
+  const navigate = useNavigate(); 
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -67,10 +68,11 @@ export default function SignIn() {
       password: data.get('password'),
     };
     const user = await LogIn(dataForm);
-    localStorage.setItem('token', user.token);
-
     if (user) {
+      localStorage.setItem('token', user.token);
       navigate('/dashboard');
+    } else {
+      setErrorMsg('Invalid User Name or Password');
     }
   }
 
@@ -127,6 +129,9 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
+            <Typography variant="body2" color="error" align="center">
+              {errorMsg}
+            </Typography>
             <Button
               type="submit"
               fullWidth

@@ -5,7 +5,7 @@ const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
 const { PropertyExists, BodyNotSent, InvalidData } = require('../errors/400.errors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Permit } = require('permitio');
+// const { Permit } = require('permitio');
 
 const generateId = async () => {
     try {
@@ -38,7 +38,6 @@ exports.LogIn = async (req, res, next) => {
         if (result.length === 0) {
             throw new EntityNotFound('Users data');
         }
-        console.log('resulat: ', result)
 
         const user = result.find((user) => user.user_name === req.body.user_name);
         if (!user) {
@@ -82,16 +81,16 @@ exports.SignUp = async (req, res, next) => {
             password: req.body.password,
             admin: req.body.admin
         };
-        const permit = new Permit(process.env.PERMITIO_KEY);
-        const permit_user = {
-            key: newUser._id,
-            email: "",
-            first_name: newUser.user_name,
-            last_name: "",
-            attributes: {}
-        };
-        console.log('permit_user: ', permit_user);
-        await permit.api.createUser(permit_user);
+        // const permit = new Permit(process.env.PERMITIO_KEY);
+        // const permit_user = {
+        //     key: newUser._id,
+        //     email: "",
+        //     first_name: newUser.user_name,
+        //     last_name: "",
+        //     attributes: {}
+        // };
+        // console.log('permit_user: ', permit_user);
+        // await permit.api.createUser(permit_user);
         await create(newUser);
         res.status(200).json(newUser);
     } catch (error) {
