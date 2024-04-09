@@ -6,17 +6,20 @@ const StyledButton = styled.a`
     color: #fff;
     font-weight: bold;
     text-decoration: none; 
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 9px 20px;
+    border-radius: 15px;
     cursor: pointer;
+    border: 3px solid #fff;
     &:hover {
-        color: #486284; 
+        color: #1976D2; 
+        background-color: #fff;
+        border: 3px solid #1976D2;
     }
 `;
 
 const Button = ({ text, page }) => {
     return (
-        <StyledButton href={page} target="_blank"> {/* Use href to specify the URL */}
+        <StyledButton href={page} target="_blank">
             {text}
         </StyledButton>
     );

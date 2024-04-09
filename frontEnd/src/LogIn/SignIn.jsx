@@ -7,11 +7,10 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 import { LogIn } from '../API/Users.api.js';
 
@@ -53,12 +52,11 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const [errorMsg, setErrorMsg] = useState(''); 
-  const navigate = useNavigate(); 
+  const [errorMsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -101,14 +99,16 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+          <Typography variant="h5" component="h2" sx={{ color: '#0d4781' }} gutterBottom>
+            Public Information Portal
+          </Typography>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: '100px', height: '100px' }}>
+            <img src='./Logo.png' alt='logo' width='130px' height='120px' />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in

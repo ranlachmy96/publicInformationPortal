@@ -128,7 +128,7 @@ export default function DashBoard() {
     useEffect(() => {
         CheckJwtAuth(navigate)
             .then(user => {
-                const isAdmin = user.admin; // Extracting the admin property
+                const isAdmin = user.admin; 
                 console.log('User is logged in: ', user);
                 console.log('Admin status: ', isAdmin);
                 setUserRole(isAdmin);
@@ -136,11 +136,6 @@ export default function DashBoard() {
             .catch(error => {
                 console.error('Error fetching user data: ', error);
             });
-        // if (user) {
-        //     console.log('User is logged in: ', user);
-        //     setUserRole(user.admin);
-        // }
-
         const intervalId = setInterval(() => {
             CheckJwtAuth(navigate);
         }, 60000);

@@ -82,10 +82,10 @@ exports.updateInstruction = async (req, res, next) => {
         }
         const { body: Instruction, params: { id } } = req;
         const result = await update(id, Instruction);
-        if (!result || result.matchedCount === 0 ) {
+        if (!result || result.matchedCount === 0) {
             throw new PropertyNotFound('ID');
         }
-        if(result.modifiedCount === 0){
+        if (result.modifiedCount === 0) {
             throw new BodyNotSent('Instruction');
         }
         res.status(200).send(result);
@@ -99,7 +99,6 @@ exports.deleteInstruction = async (req, res, next) => {
         if (isNaN(req.params.id)) {
             throw new InvalidData();
         }
-        //add a check if doesnt exists
         const { params: { id } } = req;
         const result = await deleteById(id);
         if (!result || result.deletedCount === 0) {

@@ -60,7 +60,6 @@ exports.LogIn = async (req, res, next) => {
 
 exports.SignUp = async (req, res, next) => {
     try {
-
         if (!req.body.user_name || !req.body.password || req.body.admin === undefined) {
             console.log("error here");
             throw new BodyNotSent();

@@ -35,9 +35,9 @@ const InnerPaper = styled(Paper)`
 
 const StyledLi = styled.li`
   margin-bottom: 2%;
-  max-width: 90%; /* Adjust the max-width as needed */
+  max-width: 90%; 
   opacity: 0;
-  animation: fadeInOut 2s forwards; /* Fade-in and fade-out animation */
+  animation: fadeInOut 2s forwards; 
 `;
 
 const scroll = keyframes`
@@ -58,7 +58,7 @@ const StyledUl = styled.ul`
 `;
 
 const ScrollingContainer = styled.div`
-  animation: ${scroll} 15s linear infinite; 
+  animation: ${scroll} 30s linear infinite;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -81,15 +81,7 @@ const Welcome = () => {
     };
     fetchData();
 
-    const interval = setInterval(() => {
-      setAlerts(prevAlerts => {
-        const newAlerts = [...prevAlerts];
-        newAlerts.push(newAlerts.shift()); // Rotate alerts array
-        return newAlerts;
-      });
-    }, 3000);
 
-    return () => clearInterval(interval);
   }, []);
 
   return (

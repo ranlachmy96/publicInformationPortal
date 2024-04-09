@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress'; // Import CircularProgress for loading indicator
+import CircularProgress from '@mui/material/CircularProgress'; 
 import { GetAllInstructions } from '../../API/SafetyInstruction.api.js';
 
 const SafetyInstructionPage = () => {
@@ -10,7 +10,7 @@ const SafetyInstructionPage = () => {
     const [categories, setCategories] = useState([]);
     const [selectedInstruction, setSelectedInstruction] = useState(null);
     const [categoryImages, setCategoryImages] = useState({});
-    const [loading, setLoading] = useState(true); // Add loading state
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -21,10 +21,10 @@ const SafetyInstructionPage = () => {
 
                 const images = {};
                 uniqueCategories.forEach(category => {
-                    images[category] = `/instructions/${category.toLowerCase()}.png`; // Absolute path
+                    images[category] = `/instructions/${category.toLowerCase()}.png`; 
                 });
                 setCategoryImages(images);
-                setLoading(false); // Set loading to false after data is fetched
+                setLoading(false); 
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -55,7 +55,7 @@ const SafetyInstructionPage = () => {
 
     return (
         <div data-testid={'safetyInstructionPage'} style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-            {loading ? ( // Display loading indicator if loading is true
+            {loading ? ( 
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                     <CircularProgress />
                 </Box>

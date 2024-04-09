@@ -62,7 +62,6 @@ export default function FullScreenDialog() {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                {/* content here */}
                 <ChatWindow />
 
             </Dialog>

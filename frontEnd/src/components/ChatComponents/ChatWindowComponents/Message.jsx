@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 const Message = ({ message }) => {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div data-testid={'Message'} style={{ display: 'flex', flexDirection: 'column' }}>
             <Typography variant="body2" sx={{
                 color: '#333',
                 fontWeight: 500,

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Button from '../OrganizationComponents/organizationButton.jsx';
 
 const CardContainer = styled.div`
-    width: 100%; /* Adjust width for responsiveness */
-    max-width: 400px; /* Optional: Set maximum width to prevent stretching on larger screens */
-    height: auto; /* Adjust height to auto for variable content */
+    width: 100%;
+    max-width: 400px; 
+    height: auto; 
     background-color: #f1f1f1;
     display: flex;
     flex-direction: column;
@@ -25,13 +25,13 @@ const TextContainer = styled.div`
 
 const Title = styled.h3`
     margin-bottom: 0;
-    font-size: 1.2rem; /* Adjust font size for responsiveness */
+    font-size: 1.2rem;
 `;
 
 const Text = styled.p`
     text-align: start;
     margin-top: 5px;
-    font-size: 1rem; /* Adjust font size for responsiveness */
+    font-size: 1rem;
 `;
 
 const RowContainer = styled.div`
@@ -48,7 +48,7 @@ const Phone = styled.p`
     text-align: start;
     margin-top: 5px;
     font-weight: bold;
-    font-size: 0.9rem; /* Adjust font size for responsiveness */
+    font-size: 1rem;
 `;
 
 const InfoCards = ({ title, text, page, phone }) => {
@@ -56,11 +56,11 @@ const InfoCards = ({ title, text, page, phone }) => {
     return (
         <CardContainer>
             <TextContainer>
-                <Title>{title}</Title>
-                <Text>{text}</Text>
+                <Title data-testid={'title'} >{title}</Title>
+                <Text data-testid={'text'} >{text}</Text>
             </TextContainer>
             <RowContainer>
-                <Phone>Phone: {phone}</Phone>
+                <Phone data-testid={'phone'} >Phone: {phone}</Phone>
                 <Button text={'Link'} page={page} />
             </RowContainer>
         </CardContainer>
