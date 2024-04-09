@@ -5,6 +5,7 @@ const { PropertyNotFound, EntityNotFound } = require('../errors/404.errors');
 const { PropertyExists, BodyNotSent, InvalidData } = require('../errors/400.errors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { Permit } = require('permitio');
 
 const generateId = async () => {
     try {
@@ -60,19 +61,16 @@ exports.LogIn = async (req, res, next) => {
 
 exports.SignUp = async (req, res, next) => {
     try {
-        console.log('req.body: ', req.body);
-        console.log(req.body.user_name, req.body.password, req.body.admin);
+
         if (!req.body.user_name || !req.body.password || req.body.admin === undefined) {
             console.log("error here");
             throw new BodyNotSent();
         }
         const result = await find();
-        console.log('result: ', result);
         if (result.length === 0) {
             throw new EntityNotFound('Users data');
         }
         const user = result.find((user) => user.user_name === req.body.user_name);
-        console.log('user: ', user);
         if (user) {
             throw new PropertyExists('User');
         }
@@ -84,7 +82,15 @@ exports.SignUp = async (req, res, next) => {
             password: req.body.password,
             admin: req.body.admin
         };
-        console.log('newUser: ', newUser);
+        const permit = new Permit(process.env.PERMITIO_KEY);
+        const permit_user = {
+            key: newUser._id,
+            email: "",
+            first_name: newUser.user_name,
+            last_name: "",
+            attributes: {}
+        };
+        await permit.create(permit_user);
         await create(newUser);
         res.status(200).json(newUser);
     } catch (error) {
