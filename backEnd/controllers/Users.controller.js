@@ -82,15 +82,15 @@ exports.SignUp = async (req, res, next) => {
             password: req.body.password,
             admin: req.body.admin
         };
-        const permit = new Permit(process.env.PERMITIO_KEY);
-        const permit_user = {
-            key: newUser._id,
-            email: "",
-            first_name: newUser.user_name,
-            last_name: "",
-            attributes: {}
-        };
-        await permit.create(permit_user);
+        // const permit = new Permit(process.env.PERMITIO_KEY);
+        // const permit_user = {
+        //     key: newUser._id,
+        //     email: "",
+        //     first_name: newUser.user_name,
+        //     last_name: "",
+        //     attributes: {}
+        // };
+        // await permit.create(permit_user);
         await create(newUser);
         res.status(200).json(newUser);
     } catch (error) {
