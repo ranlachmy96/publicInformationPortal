@@ -13,11 +13,11 @@ const generateId = async () => {
             return 1;
         }
         let maxId = 0;
-        Users.forEach((Organization) => {
+        Users.forEach((User) => {
             // eslint-disable-next-line no-underscore-dangle
-            if (Users._id > maxId) {
+            if (User._id > maxId) {
                 // eslint-disable-next-line no-underscore-dangle
-                maxId = Users._id;
+                maxId = User._id;
             }
         });
         return maxId + 1;
@@ -86,7 +86,7 @@ exports.SignUp = async (req, res, next) => {
         };
         console.log('newUser: ', newUser);
         await create(newUser);
-        res.status(201).json(newUser);
+        res.status(200).json(newUser);
     } catch (error) {
         next(error);
     }
