@@ -56,11 +56,11 @@ const InfoCards = ({ title, text, page, phone }) => {
     return (
         <CardContainer>
             <TextContainer>
-                <Title>{title}</Title>
-                <Text>{text}</Text>
+                <Title data-testid={'title'} >{title}</Title>
+                <Text data-testid={'text'} >{text}</Text>
             </TextContainer>
             <RowContainer>
-                <Phone>Phone: {phone}</Phone>
+                <Phone data-testid={'phone'} >Phone: {phone}</Phone>
                 <Button text={'Link'} page={page} />
             </RowContainer>
         </CardContainer>

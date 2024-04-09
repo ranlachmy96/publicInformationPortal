@@ -142,6 +142,7 @@ const ChatWindow = () => {
 
   return (
     <Paper
+      data-testid="chat-window"
       sx={{
         display: 'flex',
         flexDirection: 'column',
