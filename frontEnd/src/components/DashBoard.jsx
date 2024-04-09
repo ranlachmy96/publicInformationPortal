@@ -1,7 +1,6 @@
-
-import React, { useEffect } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {styled, useTheme} from '@mui/material/styles';
+import {useNavigate} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -35,213 +34,230 @@ import SafetyInstructionPage from './Pages/SafetyInstructionPage';
 import OrganizationPage from './Pages/OrganizationPage.jsx'
 import AlertsPage from './Pages/AlertsPage.jsx'
 import AddAlertsPage from './Pages/AddAlertsPage.jsx'
+import ResourcesPage from './Pages/ResourcesPage.jsx'
 
-import { CheckJwtAuth } from '../API/Users.api.js';
+import {CheckJwtAuth} from '../API/Users.api.js';
+
 
 const drawerWidth = 240;
 
 const iconsDict = {
-  0: <HomeIcon />,
-  1: <ArticleIcon />,
-  2: <HealthAndSafetyIcon />,
-  3: <BusinessIcon />,
-  4: <InventoryIcon />,
-  5: <NotificationsIcon />,
-  6: <AddAlertIcon />,
+    0: <HomeIcon/>,
+    1: <ArticleIcon/>,
+    2: <HealthAndSafetyIcon/>,
+    3: <BusinessIcon/>,
+    4: <InventoryIcon/>,
+    5: <NotificationsIcon/>,
+    6: <AddAlertIcon/>,
 };
 
 const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
 });
 
 const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(8)} + 1px)`,
+    },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
+const DrawerHeader = styled('div')(({theme}) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
 }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({theme, open}) => ({
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
     }),
-  }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        ...(open && {
+            ...openedMixin(theme),
+            '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+            ...closedMixin(theme),
+            '& .MuiDrawer-paper': closedMixin(theme),
+        }),
     }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  }),
 );
 
 export default function DashBoard() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [currentPage, setCurrentPage] = React.useState('Home');
-  const navigate = useNavigate();
-
-  if (!localStorage.getItem('token')) {
-    navigate('/');
-  }
-
-  useEffect(() => {
-
-    const user = CheckJwtAuth(navigate);
-
-    if (user) {
-      console.log('User is logged in: ', user);
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+    const [currentPage, setCurrentPage] = React.useState('Home');
+    const navigate = useNavigate();
+    const [userRole, setUserRole] = React.useState(null);
+    if (!localStorage.getItem('token')) {
+        navigate('/');
     }
 
-    const intervalId = setInterval(() => {
-      CheckJwtAuth(navigate);
-    }, 60000);
+    useEffect(() => {
+        CheckJwtAuth(navigate)
+            .then(user => {
+                const isAdmin = user.admin; // Extracting the admin property
+                console.log('User is logged in: ', user);
+                console.log('Admin status: ', isAdmin);
+                setUserRole(isAdmin);
+            })
+            .catch(error => {
+                console.error('Error fetching user data: ', error);
+            });
+        // if (user) {
+        //     console.log('User is logged in: ', user);
+        //     setUserRole(user.admin);
+        // }
 
-    return () => clearInterval(intervalId);
-  }, [navigate]);
+        const intervalId = setInterval(() => {
+            CheckJwtAuth(navigate);
+        }, 60000);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+        return () => clearInterval(intervalId);
+    }, [navigate]);
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+    const isAdmin = () => {
+        console.log("mytest:", userRole);
+        return userRole === true;
 
-  const handleItemClick = (page) => {
-    setCurrentPage(page);
-  };
+    };
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
-  const handleLogout = () => {
-    console.log('Logging out...');
-    localStorage.removeItem('token');
-    navigate('/');
-  };
+    const handleItemClick = (page) => {
+        setCurrentPage(page);
+    };
 
-  return (
-    <Box data-testid={'dashBoard'} sx={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-      <ChatModal />
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {currentPage} Page
-          </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="logout"
-            onClick={handleLogout}
-            edge="end"
-            sx={{
-              marginLeft: 'auto',
-            }}
-          >
-            <LogoutIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {[
-            { text: 'Home', page: 'Home' },
-            { text: 'Articles', page: 'Articles' },
-            { text: 'Safety Instruction', page: 'Safety Instruction' },
-            { text: 'Organizations', page: 'Organizations' },
-            { text: 'Inventory', page: 'Inventory' },
-            { text: 'Alerts', page: 'Alerts' },
-            { text: 'Add New Alert', page: 'Add New Alert' },
-          ].map(({ text, page }, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-                onClick={() => handleItemClick(page)}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {iconsDict[index]}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick} />}
-        {currentPage === 'Articles' && <ArticlesPage />}
-        {currentPage === 'Safety Instruction' && <SafetyInstructionPage />}
-        {currentPage === 'Organizations' && <OrganizationPage />}
-        {currentPage === 'Alerts' && <AlertsPage />}
-        {currentPage === 'Add New Alert' && <AddAlertsPage />}
-      </Box>
-    </Box>
-  );
+    const handleLogout = () => {
+        console.log('Logging out...');
+        localStorage.removeItem('token');
+        navigate('/');
+    };
+
+    return (
+        <Box data-testid={'dashBoard'} sx={{display: 'flex', justifyContent: 'center', position: 'relative'}}>
+            <ChatModal/>
+            <CssBaseline/>
+            <AppBar position="fixed" open={open}>
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        edge="start"
+                        sx={{
+                            marginRight: 5,
+                            ...(open && {display: 'none'}),
+                        }}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                    <Typography variant="h6" noWrap component="div">
+                        {currentPage} Page
+                    </Typography>
+                    <IconButton
+                        color="inherit"
+                        aria-label="logout"
+                        onClick={handleLogout}
+                        edge="end"
+                        sx={{
+                            marginLeft: 'auto',
+                        }}
+                    >
+                        <LogoutIcon/>
+                    </IconButton>
+                </Toolbar>
+            </AppBar>
+            <Drawer variant="permanent" open={open}>
+                <DrawerHeader>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
+                    </IconButton>
+                </DrawerHeader>
+                <Divider/>
+                <List>
+                    {[
+                        {text: 'Home', page: 'Home'},
+                        {text: 'Articles', page: 'Articles'},
+                        {text: 'Safety Instruction', page: 'Safety Instruction'},
+                        {text: 'Organizations', page: 'Organizations'},
+                        {text: 'Resources', page: 'Resources'},
+                        {text: 'Alerts', page: 'Alerts'},
+                        {text: 'Add New Alert', page: 'Add New Alert'},
+                    ].map(({text, page}, index) => (
+                        (page === 'Alerts' && !isAdmin()) || (page === 'Add New Alert' && !isAdmin()) ? null : (
+                            <ListItem key={text} disablePadding sx={{display: 'block'}}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                    onClick={() => handleItemClick(page)}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        {iconsDict[index]}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} sx={{opacity: open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </ListItem>
+                        )
+                    ))}
+                </List>
+                <Divider/>
+            </Drawer>
+            <Box component="main" sx={{flexGrow: 1, p: 3}}>
+                <DrawerHeader/>
+                {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick}/>}
+                {currentPage === 'Articles' && <ArticlesPage/>}
+                {currentPage === 'Safety Instruction' && <SafetyInstructionPage/>}
+                {currentPage === 'Organizations' && <OrganizationPage/>}
+                {currentPage === 'Alerts' && <AlertsPage/>}
+                {currentPage === 'Add New Alert' && <AddAlertsPage/>}
+                {currentPage === 'Resources' && <ResourcesPage/>}
+            </Box>
+        </Box>
+    );
 }
