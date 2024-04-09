@@ -58,7 +58,7 @@ const StyledUl = styled.ul`
 `;
 
 const ScrollingContainer = styled.div`
-  animation: ${scroll} 15s linear infinite; 
+  animation: ${scroll} 30s linear infinite;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -81,15 +81,7 @@ const Welcome = () => {
     };
     fetchData();
 
-    const interval = setInterval(() => {
-      setAlerts(prevAlerts => {
-        const newAlerts = [...prevAlerts];
-        newAlerts.push(newAlerts.shift()); 
-        return newAlerts;
-      });
-    }, 3000);
 
-    return () => clearInterval(interval);
   }, []);
 
   return (

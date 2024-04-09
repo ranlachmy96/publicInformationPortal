@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 import { LogIn } from '../API/Users.api.js';
 
@@ -104,9 +104,9 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Typography variant="h5" component="h2" sx={{color:'#0d4781'}} gutterBottom>
+          <Typography variant="h5" component="h2" sx={{ color: '#0d4781' }} gutterBottom>
             Public Information Portal
-          </Typography>    
+          </Typography>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: '100px', height: '100px' }}>
             <img src='./Logo.png' alt='logo' width='130px' height='120px' />
           </Avatar>
