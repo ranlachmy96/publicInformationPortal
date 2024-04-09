@@ -10,7 +10,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 import emergencyKeywords from './ChatWindowComponents/Keywords';
 import Message from './ChatWindowComponents/Message';
-import Validate from './messageValidator';
+import Validate from '../middleware/messageValidator';
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
@@ -164,7 +164,7 @@ const ChatWindow = () => {
           backgroundImage: 'url(/chatWallpaper.png)',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center top', // Move the background image down
+          backgroundPosition: 'center top', 
 
         }}
       >

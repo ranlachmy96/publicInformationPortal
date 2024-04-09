@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 import Button from './HomeButton';
 
-// Styled components for the card elements
 const CardContainer = styled.div`
     width: 50%;
     height: 300px;

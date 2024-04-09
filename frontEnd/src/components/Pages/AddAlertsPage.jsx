@@ -56,7 +56,7 @@ const Form = () => {
             };
             const response = await CreateAlert(JSON.stringify(formattedFormData));
             console.log("this is my response: ", response);
-            setSubmitted(true); // Set submitted to true upon successful submission
+            setSubmitted(true); 
         } catch (error) {
             console.error("Error creating alert:", error);
         }
@@ -69,10 +69,10 @@ const Form = () => {
                 component="form"
                 sx={{
                     '& .MuiTextField-root': { m: 2, width: '90%', display: 'flex', flexDirection: 'column'},
-                    textAlign: 'center', // Align the form to the center
-                    border: '1px solid #ccc', // Border width
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Box shadow
-                    padding: '20px', // Add padding around the form
+                    textAlign: 'center', 
+                    border: '1px solid #ccc', 
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
+                    padding: '20px',
                 }}
                 noValidate
                 autoComplete="off"
@@ -94,9 +94,9 @@ const Form = () => {
                     onChange={handleChange}
                     type='datetime-local'
                     name='date'
-                    InputProps={{ // Add InputProps to the TextField
+                    InputProps={{ 
                         startAdornment: (
-                            <CalendarTodayIcon color="action" /> // Render the icon
+                            <CalendarTodayIcon color="action" /> 
                         ),
                     }}
                     sx={{width:'100%'}}

@@ -35,9 +35,9 @@ const InnerPaper = styled(Paper)`
 
 const StyledLi = styled.li`
   margin-bottom: 2%;
-  max-width: 90%; /* Adjust the max-width as needed */
+  max-width: 90%; 
   opacity: 0;
-  animation: fadeInOut 2s forwards; /* Fade-in and fade-out animation */
+  animation: fadeInOut 2s forwards; 
 `;
 
 const scroll = keyframes`
@@ -84,7 +84,7 @@ const Welcome = () => {
     const interval = setInterval(() => {
       setAlerts(prevAlerts => {
         const newAlerts = [...prevAlerts];
-        newAlerts.push(newAlerts.shift()); // Rotate alerts array
+        newAlerts.push(newAlerts.shift()); 
         return newAlerts;
       });
     }, 3000);
