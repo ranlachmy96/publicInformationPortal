@@ -21,7 +21,7 @@ const SafetyInstructionPage = () => {
 
                 const images = {};
                 uniqueCategories.forEach(category => {
-                    images[category] = `../../../public/instructions/${category.toLowerCase()}.png`;
+                    images[category] = `/instructions/${category.toLowerCase()}.png`; // Absolute path
                 });
                 setCategoryImages(images);
                 setLoading(false); // Set loading to false after data is fetched
