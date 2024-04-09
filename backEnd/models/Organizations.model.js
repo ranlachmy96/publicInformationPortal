@@ -10,4 +10,3 @@ const OrganizationsSchema = new Schema({
 }, { collection: 'Organizations' });
 
 module.exports = model('Organizations', OrganizationsSchema);
-

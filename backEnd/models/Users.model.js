@@ -8,4 +8,3 @@ const UsersSchema = new Schema({
 }, { collection: 'Users' });
 
 module.exports = model('Users', UsersSchema);
-

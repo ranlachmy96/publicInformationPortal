@@ -9,4 +9,3 @@ const InstructionsSchema = new Schema({
 }, { collection: 'Instructions' });
 
 module.exports = model('Instructions', InstructionsSchema);
-
