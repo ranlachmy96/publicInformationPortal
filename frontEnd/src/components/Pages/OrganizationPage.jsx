@@ -51,7 +51,6 @@ const OrganizationPage = () => {
                 setLoading(false);
             });
     }, []);
-
     return (
         <Container>
             <Title>Important Emergency Organizations</Title>
