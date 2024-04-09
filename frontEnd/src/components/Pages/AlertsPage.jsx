@@ -1,3 +1,6 @@
+/***************************************************************
+ * Import Dependencies
+ ***************************************************************/
 import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -33,11 +36,18 @@ import {
     FormControlLabel,
     Button,
 } from '@mui/material';
-
+/***************************************************************
+ * Function to Create Row Data
+ * - Creates a row object from alert data
+ ***************************************************************/
 function createData(_id, description, date, priority) {
     return {_id, description, date, priority};
 }
-
+/***************************************************************
+ * Component: AlertsPage
+ * - Renders a page displaying alerts in a table
+ * - Allows deleting and editing alerts
+ ***************************************************************/
 export default function AlertsPage() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -52,7 +62,10 @@ export default function AlertsPage() {
         'Medium': <FontAwesomeIcon icon={faExclamationTriangle} color="orange"/>,
         'High': <FontAwesomeIcon icon={faExclamationTriangle} color="red"/>,
     };
-
+    /***************************************************************
+     * Function to Fetch Data
+     * - Fetches all alerts from the API and sets them in state
+     ***************************************************************/
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -71,7 +84,9 @@ export default function AlertsPage() {
     useEffect(() => {
         fetchData();
     }, []);
-
+    /***************************************************************
+     * Delete selected rows
+     ***************************************************************/
     const handleDeleteSelectedRows = async () => {
         selected.forEach(async _id => {
             await deleteAlert(_id);
@@ -80,7 +95,9 @@ export default function AlertsPage() {
         setRows(newRows);
         setSelected([]);
     };
-
+    /***************************************************************
+     * Edit selected rows
+     ***************************************************************/
     const handleEditSelectedRows = () => {
         const selectedRow = rows.find(row => selected.includes(row._id));
         if (selectedRow) {
@@ -88,11 +105,15 @@ export default function AlertsPage() {
             setOpenEditDialog(true);
         }
     };
-
+    /***************************************************************
+     * Close edit dialog
+     ***************************************************************/
     const handleEditDialogClose = () => {
         setOpenEditDialog(false);
     };
-
+    /***************************************************************
+     * Save edited row data
+     ***************************************************************/
     const handleEditDialogSave = async () => {
         try {
             await UpdateAlert(editedRowData);
@@ -103,16 +124,22 @@ export default function AlertsPage() {
             console.error('Error updating row:', error);
         }
     };
-
+    /***************************************************************
+     * Change page
+     ***************************************************************/
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
-
+    /***************************************************************
+     * Change rows per page
+     ***************************************************************/
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-
+    /***************************************************************
+     * Handle row click
+     ***************************************************************/
     const handleClick = (event, _id) => {
         const selectedIndex = selected.indexOf(_id);
         let newSelected = [];
@@ -131,7 +158,9 @@ export default function AlertsPage() {
         }
         setSelected(newSelected);
     };
-
+    /***************************************************************
+     * Check if a row is selected
+     ***************************************************************/
     const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
     return (

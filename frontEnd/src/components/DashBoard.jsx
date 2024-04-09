@@ -1,3 +1,6 @@
+/***************************************************************
+ Import Dependencies
+ ***************************************************************/
 import React, {useEffect} from 'react';
 import {styled, useTheme} from '@mui/material/styles';
 import {useNavigate} from 'react-router-dom';
@@ -18,7 +21,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
-
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
@@ -27,7 +29,6 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AddAlertIcon from '@mui/icons-material/AddAlert';
 import ChatModal from './ChatComponents/ChatModal';
-
 import HomePage from './Pages/HomePage';
 import ArticlesPage from './Pages/ArticlesPage';
 import SafetyInstructionPage from './Pages/SafetyInstructionPage';
@@ -35,10 +36,12 @@ import OrganizationPage from './Pages/OrganizationPage.jsx'
 import AlertsPage from './Pages/AlertsPage.jsx'
 import AddAlertsPage from './Pages/AddAlertsPage.jsx'
 import ResourcesPage from './Pages/ResourcesPage.jsx'
-
 import {CheckJwtAuth} from '../API/Users.api.js';
 
-
+/***************************************************************
+ Define Drawer Width and Icons Dictionary
+ Create a dictionary to map index to corresponding Material-UI icons
+ ***************************************************************/
 const drawerWidth = 240;
 
 const iconsDict = {
@@ -50,7 +53,10 @@ const iconsDict = {
     5: <NotificationsIcon/>,
     6: <AddAlertIcon/>,
 };
-
+/***************************************************************
+ Define Mixins for Drawer
+ Define mixins for opened and closed states of the drawer
+ ***************************************************************/
 const openedMixin = (theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -71,7 +77,10 @@ const closedMixin = (theme) => ({
         width: `calc(${theme.spacing(8)} + 1px)`,
     },
 });
-
+/***************************************************************
+ Define Drawer Header Component
+ Define the component for the header of the drawer
+ ***************************************************************/
 const DrawerHeader = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
@@ -79,7 +88,10 @@ const DrawerHeader = styled('div')(({theme}) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
 }));
-
+/***************************************************************
+ Define Styled AppBar Component
+ Define the styled component for the app bar
+ ***************************************************************/
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })(({theme, open}) => ({
@@ -97,7 +109,10 @@ const AppBar = styled(MuiAppBar, {
         }),
     }),
 }));
-
+/***************************************************************
+ Define Styled Drawer Component
+ Define the styled component for the drawer
+ ***************************************************************/
 const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
     ({theme, open}) => ({
         width: drawerWidth,
@@ -114,7 +129,11 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
         }),
     }),
 );
-
+/***************************************************************
+ DashBoard Component
+ Main component for the dashboard
+ Handles navigation, user authentication, and rendering of different pages
+ ***************************************************************/
 export default function DashBoard() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);

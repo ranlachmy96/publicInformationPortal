@@ -1,3 +1,6 @@
+/***************************************************************
+ * Import Dependencies
+ ***************************************************************/
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -5,7 +8,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import ArticleCard from '../ArticleComponents/ArticleCard';
 import useFetchNews from '../middleware/useFetchNews';
-
+/***************************************************************
+ * Component: ArticlesPage
+ * - Renders a page displaying Israeli articles from around the globe
+ * - Fetches news data using useFetchNews hook
+ ***************************************************************/
 const ArticlesPage = () => {
     const {newsData, loading, error} = useFetchNews();
 

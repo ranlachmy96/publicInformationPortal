@@ -1,3 +1,6 @@
+/***************************************************************
+ * Import Dependencies
+ ***************************************************************/
 import React, {useState, useEffect} from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import InfoCards from '../OrganizationComponents/infoCards.jsx';
@@ -35,7 +38,11 @@ const StyledDiv = styled.div`
     justify-content: center;
     gap: 20px;
 `;
-
+/***************************************************************
+ * Component: OrganizationPage
+ * - Renders a page displaying important emergency organizations
+ * - Fetches organizations data using GetAllOrganizations
+ ***************************************************************/
 const OrganizationPage = () => {
     const [organizations, setOrganizations] = useState([]);
     const [loading, setLoading] = useState(true);

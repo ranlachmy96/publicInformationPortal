@@ -1,3 +1,6 @@
+/***************************************************************
+ Import Dependencies
+ ***************************************************************/
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
@@ -14,7 +17,10 @@ const StyledDiv = styled.div`
     display: inline-block;
     width: fit-content;
 `;
-
+/***************************************************************
+ Title Component
+ Renders a styled title with provided text
+ ***************************************************************/
 const Title = ({text}) => {
     return (
         <StyledDiv>

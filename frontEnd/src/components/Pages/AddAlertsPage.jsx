@@ -1,3 +1,6 @@
+/***************************************************************
+ * Import Dependencies
+ ***************************************************************/
 import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -23,7 +26,11 @@ const ErrorMessage = styled.p`
     color: red;
     margin-top: 10px;
 `;
-
+/***************************************************************
+ * Form Component
+ * - Renders a form for creating new alerts
+ * - Manages form data and submission state
+ ***************************************************************/
 const Form = () => {
     const [formData, setFormData] = useState({
         description: '',

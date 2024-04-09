@@ -1,3 +1,6 @@
+/***************************************************************
+ * Import Dependencies
+ ***************************************************************/
 import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import styled from "styled-components";
@@ -46,7 +49,12 @@ const StyledPieChart = styled(PieChart)`
     border: 2px solid white;
     border-radius: 5px;
 `;
-
+/***************************************************************
+ * Component: ResourcesPage
+ * - Renders a page displaying information about resources during crisis
+ * - Fetches campaigns data using fetchCampaigns
+ * - Counts campaigns by category and renders a pie chart
+ ***************************************************************/
 const ResourcesPage = () => {
     const [campaigns, setCampaigns] = useState([]);
     const [categoryCounts, setCategoryCounts] = useState({});

@@ -1,3 +1,6 @@
+/***************************************************************
+ * Import Dependencies
+ ***************************************************************/
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
@@ -14,7 +17,12 @@ const StyledDiv = styled.div`
     justify-content: center;
     padding: 2%;
 `
-
+/***************************************************************
+ * Component: HomePage
+ * - Renders the home page with welcome message, information options,
+ *   and a video section
+ * - Receives handleItemClick function as props to handle navigation
+ ***************************************************************/
 const HomePage = ({ handleItemClick }) => {
     return (
         <div data-testid={'homePage'} style={{
