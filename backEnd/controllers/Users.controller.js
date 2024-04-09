@@ -75,7 +75,7 @@ exports.LogIn = async (req, res, next) => {
             throw new PropertyNotFound('User');
         }
 
-        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '30m' });
+        const token = jwt.sign({ user_name: user.user_name, admin: user.admin }, process.env.JWT_KEY, { expiresIn: '1h' });
         const tokenized_user = { user, token };
         res.body = tokenized_user;
         // res.cookie('token', token, { httpOnly: true });

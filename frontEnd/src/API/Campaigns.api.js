@@ -8,10 +8,3 @@ const fetchCampaigns = async (id) => {
 };
 
 export { fetchCampaigns };
-
-
-
-
-
-
-
