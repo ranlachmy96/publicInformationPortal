@@ -15,7 +15,7 @@ const ButtonContainer = styled.div`
     height: 20%;
 `;
 
-const Button = ({ text, page, handleItemClick }) => {
+const Button = ({text, page, handleItemClick}) => {
     const handleClick = () => {
         handleItemClick(page);
     };
