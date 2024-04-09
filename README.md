@@ -7,7 +7,7 @@
 This repository contains the source code for [publicInformationPortal], a project with the goal for showing users information about a varity 
 of emergancy issues, as a guest user the user can mainly view information and as an admin user the user can input,update and deletd Alerts which will be shown to the guest users 
 overall the goal of the system is to enrich the users knowladged during emrgancy times.
-The APIs provided  for managing [, organizations, instructions, users, campaigns]. The project is built using Node.js, Express.js, MongoDB, and Mongoose.
+The APIs provided  for managing organizations, instructions, users, campaigns. The project is built using Node.js, Express.js, MongoDB, and Mongoose.
 
 ## Features
 
@@ -65,11 +65,6 @@ The APIs provided  for managing [, organizations, instructions, users, campaigns
 
 - The project handles various error scenarios, including 400 (Bad Request), 404 (Not Found), and 500 (Internal Server Error).
 - Error responses include meaningful error messages to help identify the issue.
-
-## Contributing
-
-Contributions are welcome! Please follow the [Contribution Guidelines](CONTRIBUTING.md).
-
 
 
 # Front End
@@ -169,6 +164,4 @@ Contributions to the Public Information Portal project are welcome! To contribut
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
-
----
+This project belongs to Ran Lachmy & Eido Peretz.
