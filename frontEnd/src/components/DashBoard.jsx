@@ -147,7 +147,6 @@ export default function DashBoard() {
         setOpen(true);
     };
     const isAdmin = () => {
-        console.log("mytest:", userRole);
         return userRole === true;
 
     };
