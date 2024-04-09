@@ -70,12 +70,9 @@ The APIs provided  for managing [, organizations, instructions, users, campaigns
 
 Contributions are welcome! Please follow the [Contribution Guidelines](CONTRIBUTING.md).
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 
-# Frontend
+# Front End
 
 This repository contains the frontend codebase for the Public Information Portal application. The Public Information Portal is a web application designed to provide users with access to emergency alerts, news articles, and an interactive chatbot for emergency-related inquiries.
 
@@ -175,5 +172,3 @@ Contributions to the Public Information Portal project are welcome! To contribut
 This project is licensed under the [MIT License](LICENSE).
 
 ---
-
-Feel free to customize the README file further based on your specific project requirements and additional information you'd like to include!
