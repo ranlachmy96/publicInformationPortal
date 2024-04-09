@@ -135,8 +135,8 @@ export default function AlertsPage() {
     const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
     return (
-        <div>
-            <TableContainer component={Paper} sx={{ width: '100%' }}>
+        <div style={{width:'70vw'}}>
+            <TableContainer component={Paper} sx={{width: '100%' }}>
                 {loading && (
                     <Box sx={{ width: '100%' }}>
                         <LinearProgress />
