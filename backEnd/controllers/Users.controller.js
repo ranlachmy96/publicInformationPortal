@@ -91,7 +91,7 @@ exports.SignUp = async (req, res, next) => {
             attributes: {}
         };
         console.log('permit_user: ', permit_user);
-        await permit.create(permit_user);
+        await permit.api.createUser(permit_user);
         await create(newUser);
         res.status(200).json(newUser);
     } catch (error) {
