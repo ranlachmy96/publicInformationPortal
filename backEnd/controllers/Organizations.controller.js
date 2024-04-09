@@ -1,3 +1,40 @@
+/***************************************************************
+ * Import Dependencies
+ * - Importing repository functions for CRUD operations on organizations
+ * - Importing custom error classes for 404 errors
+ * - Importing custom error classes for 400 errors
+ ***************************************************************/
+
+/***************************************************************
+ * Generate ID
+ * - Function to generate a unique ID for organizations
+ ***************************************************************/
+
+/***************************************************************
+ * Get All Organizations
+ * - Function to get all organizations
+ ***************************************************************/
+
+/***************************************************************
+ * Get Organization by ID
+ * - Function to get a specific organization by ID
+ ***************************************************************/
+
+/***************************************************************
+ * Create Organization
+ * - Function to create a new organization
+ ***************************************************************/
+
+/***************************************************************
+ * Update Organization
+ * - Function to update an existing organization
+ ***************************************************************/
+
+/***************************************************************
+ * Delete Organization
+ * - Function to delete an organization by ID
+ ***************************************************************/
+
 const {
     find, findById, create, update, deleteById,
 } = require('../repositories/Organizations.repository');

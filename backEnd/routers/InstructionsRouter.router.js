@@ -1,3 +1,13 @@
+/***************************************************************
+ * Define Instructions Router
+ * - Create a new instance of Router for managing instruction routes
+ ***************************************************************/
+
+/***************************************************************
+ * Define Route Handlers
+ * - Define route handlers for various CRUD operations on instructions
+ * - Assign controller functions to handle requests to different routes
+ ***************************************************************/
 const { Router } = require('express');
 const {
     getAllInstructions,

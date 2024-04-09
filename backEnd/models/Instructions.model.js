@@ -1,3 +1,9 @@
+/***************************************************************
+ * Define Instructions Schema
+ * - Define the structure of the Instructions schema
+ * - Specify fields with their types and validation requirements
+ * - Set collection name to 'Instructions'
+ ***************************************************************/
 const { Schema, model } = require('mongoose');
 
 const InstructionsSchema = new Schema({

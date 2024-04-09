@@ -1,3 +1,9 @@
+/***************************************************************
+ * MongoDB Storage Class
+ * - Handles MongoDB storage operations
+ * - Connects to the MongoDB database
+ * - Implements CRUD operations
+ ***************************************************************/
 
 const { EventEmitter } = require('events');
 const mongoose = require('mongoose');

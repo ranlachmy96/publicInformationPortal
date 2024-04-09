@@ -1,3 +1,40 @@
+/***************************************************************
+ * Import Dependencies
+ * - Importing repository functions for CRUD operations on alerts
+ * - Importing custom error classes for 404 errors
+ * - Importing custom error classes for 400 errors
+ ***************************************************************/
+
+/***************************************************************
+ * Generate ID
+ * - Function to generate a unique ID for alerts
+ ***************************************************************/
+
+/***************************************************************
+ * Get All Alerts
+ * - Function to get all alerts
+ ***************************************************************/
+
+/***************************************************************
+ * Get Alert by ID
+ * - Function to get a specific alert by ID
+ ***************************************************************/
+
+/***************************************************************
+ * Create Alert
+ * - Function to create a new alert
+ ***************************************************************/
+
+/***************************************************************
+ * Update Alert
+ * - Function to update an existing alert
+ ***************************************************************/
+
+/***************************************************************
+ * Delete Alert
+ * - Function to delete an alert by ID
+ ***************************************************************/
+
 const {
     find, findById, create, update, deleteById,
 } = require('../repositories/Alerts.repository');
@@ -16,7 +53,7 @@ const generateId = async () => {
             if (Alert._id > maxId) {
                 // eslint-disable-next-line no-underscore-dangle
                 maxId = Alert._id;
-            }
+            }   
         });
         return maxId + 1;
     } catch (error) {

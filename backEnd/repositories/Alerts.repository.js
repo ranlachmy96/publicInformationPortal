@@ -1,4 +1,15 @@
+/***************************************************************
+ * Initialize Database Connection
+ * - Create an instance of MongoStorage if database connection parameters are provided
+ * - Otherwise, throw an error indicating missing connection parameters
+ ***************************************************************/
 
+/***************************************************************
+ * CRUD Operations
+ * - Define functions for performing CRUD operations
+ * - Each function checks if the storage instance exists before calling its respective method
+ * - Return null if storage instance does not exist (database connection not established)
+ ***************************************************************/
 const MongoStorage = require('../data/MongoStorage');
 
 let storage = null;

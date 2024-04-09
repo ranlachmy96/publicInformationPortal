@@ -1,3 +1,40 @@
+/***************************************************************
+ * Import Dependencies
+ * - Importing repository functions for CRUD operations on instructions
+ * - Importing custom error classes for 404 errors
+ * - Importing custom error classes for 400 errors
+ ***************************************************************/
+
+/***************************************************************
+ * Generate ID
+ * - Function to generate a unique ID for instructions
+ ***************************************************************/
+
+/***************************************************************
+ * Get All Instructions
+ * - Function to get all instructions
+ ***************************************************************/
+
+/***************************************************************
+ * Get Instruction by ID
+ * - Function to get a specific instruction by ID
+ ***************************************************************/
+
+/***************************************************************
+ * Create Instruction
+ * - Function to create a new instruction
+ ***************************************************************/
+
+/***************************************************************
+ * Update Instruction
+ * - Function to update an existing instruction
+ ***************************************************************/
+
+/***************************************************************
+ * Delete Instruction
+ * - Function to delete an instruction by ID
+ ***************************************************************/
+
 const {
     find, findById, create, update, deleteById,
 } = require('../repositories/Instructions.repository');

@@ -1,3 +1,32 @@
+/***************************************************************
+ * Import Dependencies
+ * - Importing repository functions for CRUD operations on users
+ * - Importing custom error classes for 404 errors
+ * - Importing custom error classes for 400 errors
+ * - Importing bcrypt for password hashing
+ * - Importing jsonwebtoken for token generation and verification
+ ***************************************************************/
+
+/***************************************************************
+ * Generate ID
+ * - Function to generate a unique ID for users
+ ***************************************************************/
+
+/***************************************************************
+ * LogIn
+ * - Function to authenticate user login
+ ***************************************************************/
+
+/***************************************************************
+ * SignUp
+ * - Function to register a new user
+ ***************************************************************/
+
+/***************************************************************
+ * CheckJwtAuth
+ * - Function to verify JWT token for authentication
+ ***************************************************************/
+
 const {
     find, create
 } = require('../repositories/Users.repository');

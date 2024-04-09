@@ -1,3 +1,9 @@
+/***************************************************************
+ * Define Alerts Schema
+ * - Define the structure of the Alerts schema
+ * - Specify fields with their types and validation requirements
+ * - Set collection name to 'Alerts'
+ ***************************************************************/
 const { Schema, model } = require('mongoose');
 
 const AlertsSchema = new Schema({

@@ -1,3 +1,13 @@
+/***************************************************************
+ * Define Alerts Router
+ * - Create a new instance of Router for managing alert routes
+ ***************************************************************/
+
+/***************************************************************
+ * Define Route Handlers
+ * - Define route handlers for various CRUD operations on alerts
+ * - Assign controller functions to handle requests to different routes
+ ***************************************************************/
 const { Router } = require('express');
 const {
     getAllAlerts,

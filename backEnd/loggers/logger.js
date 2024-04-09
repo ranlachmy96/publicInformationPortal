@@ -1,3 +1,14 @@
+/***************************************************************
+ * Logger Configuration
+ * - Configure morgan middleware to log HTTP requests in combined format
+ * - Write logs to the created log stream
+ ***************************************************************/
+
+/***************************************************************
+ * Development Logger Configuration
+ * - Configure morgan middleware to log HTTP requests in dev format
+ * - No stream specified, logs will be output to console
+ ***************************************************************/
 
 const fs = require('fs');
 const path = require('path');

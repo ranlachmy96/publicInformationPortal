@@ -1,3 +1,9 @@
+/***************************************************************
+ * Define Organizations Schema
+ * - Define the structure of the Organizations schema
+ * - Specify fields with their types and validation requirements
+ * - Set collection name to 'Organizations'
+ ***************************************************************/
 const { Schema, model } = require('mongoose');
 
 const OrganizationsSchema = new Schema({

@@ -1,3 +1,26 @@
+/***************************************************************
+ * Import Dependencies
+ * - Importing cors for handling Cross-Origin Resource Sharing
+ * - Importing express for creating the web server
+ * - Importing logger and loggerDev for request logging
+ * - Importing cookie-parser for parsing cookies
+ * - Importing errorHandler middleware for handling errors
+ * - Importing routers for different endpoints
+ * - Importing dotenv for loading environment variables
+ ***************************************************************/
+
+/***************************************************************
+ * Configure Express App
+ * - Create an instance of the express application
+ * - Set the port to listen on, defaulting to 3000 if not provided
+ * - Use cors middleware to enable Cross-Origin Resource Sharing
+ * - Use cookie-parser middleware to parse cookies
+ * - Use express.json and express.urlencoded middleware for parsing request bodies
+ * - Use logger and loggerDev middleware for request logging
+ * - Use the defined routers for different endpoints
+ * - Use errorHandler middleware for handling errors
+ * - Start the server and listen on the specified port
+ ***************************************************************/
 const cors = require('cors');
 const express = require('express');
 const {logger, loggerDev} = require('./loggers/logger');
