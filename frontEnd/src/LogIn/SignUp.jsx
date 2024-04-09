@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,31 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 import { SignUpFunc } from '../API/Users.api.js';
+
+const StyledButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #1976d2;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  padding: 0;
+  text-decoration: underline;
+  text-decoration-color: rgba(25, 118, 210, 0.4);
+
+  &:hover {
+    text-decoration-color: inherit;
+    color: #747bff;
+  }
+
+  &:focus { 
+    text-decoration-color: inherit;
+    outline: none; 
+  }
+`;
 
 function Copyright(props) {
   return (
@@ -46,6 +72,11 @@ export default function SignUp() {
     } else {
       alert("User Name already exists");
     }
+  }
+
+  function handleSignIn(event) {
+    event.preventDefault();
+    navigate('/');
   }
 
 
@@ -99,9 +130,9 @@ export default function SignUp() {
             </Button>
 
           </Box>
-          <Link href="/" variant="body2">
+          <StyledButton onClick={handleSignIn}>
             {"Already have an account? Sign In"}
-          </Link>
+          </StyledButton>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

@@ -90,6 +90,11 @@ export default function SignIn() {
     }
   }
 
+  function handleSignUp(event) {
+    event.preventDefault();
+    navigate('/signUp');
+  }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -143,13 +148,13 @@ export default function SignIn() {
             <Grid container>
               <Grid sx={{ display: 'flex' }} item xs>
                 <StyledButton onClick={handleGuest} variant="body2">
-                  Enter as Guest
+                  {"Enter as Guest"}
                 </StyledButton>
               </Grid>
               <Grid item>
-                <Link href="/signUp" variant="body2">
+                <StyledButton onClick={handleSignUp} variant="body2">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </StyledButton>
               </Grid>
             </Grid>
           </Box>
