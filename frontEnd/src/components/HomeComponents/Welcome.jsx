@@ -7,7 +7,7 @@ import { GetAllAlerts } from '../../API/Alerts.api';
 const StyledPaper = styled(Paper)`
   width: 80vw;
   height: 70vh;
-  background-image: url('../../../public/Welcome.png');
+  background-image: url('/Welcome.png');
   background-size: cover;
   background-position: center;
   display: flex;

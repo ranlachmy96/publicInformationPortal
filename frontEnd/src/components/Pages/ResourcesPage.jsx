@@ -13,7 +13,7 @@ const ResourcesPage = () => {
             <Title>Resources Information</Title>
             <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', flexWrap: 'wrap' }}>
                 <div style={{ width: '50%', padding: '20px' }}>
-                    <img src="../../../public/Resources/Resource.png" alt="Resources" style={{ width: '100%' }} />
+                    <img src="/Resources/Resource.png" alt="Resources" style={{ width: '100%' }} />
                 </div>
                 <div style={{
                     width: '50%',

@@ -4,17 +4,17 @@ import Paper from '@mui/material/Paper';
 
 const ArticleCard = ({ title, link, website }) => {
     const websiteDict = {
-        'guardian': '../../../public/Websites/Guardian.jpg',
-        'nyt': '../../../public/Websites/nytimes.png',
-        'thetimes': '../../../public/Websites/TheTimes.png',
-        'es': '../../../public/Websites/TheStandard.jpg',
-        'bbc': '../../../public/Websites/bbc.jpg',
-        'telegraph': '../../../public/Websites/The_Telegraph.jpg',
-        'latimes': '../../../public/Websites/LaTimes.png',
-        'smh': '../../../public/Websites/Sydney.png',
+        'guardian': '/Websites/Guardian.jpg',
+        'nyt': '/Websites/nytimes.png',
+        'thetimes': '/Websites/TheTimes.png',
+        'es': '/Websites/TheStandard.jpg',
+        'bbc': '/Websites/bbc.jpg',
+        'telegraph': '/Websites/The_Telegraph.jpg',
+        'latimes': '/Websites/LaTimes.png',
+        'smh': '/Websites/Sydney.png',
     };
 
-    const websiteImage = websiteDict[website] || '../../../public/Default.png';
+    const websiteImage = websiteDict[website] || '/Default.png';
 
     return (
         <div style={{ width: '100%' }}>

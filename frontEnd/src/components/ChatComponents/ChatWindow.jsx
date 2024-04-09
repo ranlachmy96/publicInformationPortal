@@ -161,7 +161,7 @@ const ChatWindow = () => {
             display: 'none',
           },
           scrollbarWidth: 'none',
-          backgroundImage: 'url(../../../public/chatWallpaper.png)',
+          backgroundImage: 'url(/chatWallpaper.png)',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center top', // Move the background image down

@@ -21,7 +21,7 @@ const ArticlesPage = () => {
             }
             {error &&
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src={'../../../public/Error.jpg'} alt="Error" style={{ width: '50%', height: 'auto', borderRadius: '25px' }} />
+                    <img src={'/Error.jpg'} alt="Error" style={{ width: '50%', height: 'auto', borderRadius: '25px' }} />
                     <Typography variant="h5" component="h2" gutterBottom sx={{ marginTop: '-40px', fontWeight: 'bold' }}>
                         Error fetching data
                     </Typography>
