@@ -1,3 +1,23 @@
+/***************************************************************
+ * Styled Components
+ * - Define styled components for different parts of the card:
+ *   - CardContainer: Container for the entire card
+ *   - TextContainer: Container for text content
+ *   - Title: Styled heading for the card title
+ *   - Text: Styled paragraph for the card text
+ *   - RowContainer: Container for the row at the bottom of the card
+ *   - Phone: Styled paragraph for the phone number
+ ***************************************************************/
+
+/***************************************************************
+ * InfoCards Component
+ * - Define a functional component named InfoCards
+ * - Accepts props: title, text, page, and phone
+ * - Render the card using styled components
+ * - Display the title and text inside the TextContainer
+ * - Display the phone number and a button in the RowContainer
+ * - Return the JSX structure for the InfoCards component
+ ***************************************************************/
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../OrganizationComponents/organizationButton.jsx';
@@ -51,7 +71,7 @@ const Phone = styled.p`
     font-size: 1rem;
 `;
 
-const InfoCards = ({title, text, page, phone}) => {
+const InfoCards = ({ title, text, page, phone }) => {
 
     return (
         <CardContainer>
@@ -61,7 +81,7 @@ const InfoCards = ({title, text, page, phone}) => {
             </TextContainer>
             <RowContainer>
                 <Phone data-testid={'phone'}>Phone: {phone}</Phone>
-                <Button text={'Link'} page={page}/>
+                <Button text={'Link'} page={page} />
             </RowContainer>
         </CardContainer>
     );

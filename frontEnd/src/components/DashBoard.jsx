@@ -1,9 +1,9 @@
 /***************************************************************
  Import Dependencies
  ***************************************************************/
-import React, {useEffect} from 'react';
-import {styled, useTheme} from '@mui/material/styles';
-import {useNavigate} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -36,7 +36,7 @@ import OrganizationPage from './Pages/OrganizationPage.jsx'
 import AlertsPage from './Pages/AlertsPage.jsx'
 import AddAlertsPage from './Pages/AddAlertsPage.jsx'
 import ResourcesPage from './Pages/ResourcesPage.jsx'
-import {CheckJwtAuth} from '../API/Users.api.js';
+import { CheckJwtAuth } from '../API/Users.api.js';
 
 /***************************************************************
  Define Drawer Width and Icons Dictionary
@@ -45,13 +45,13 @@ import {CheckJwtAuth} from '../API/Users.api.js';
 const drawerWidth = 240;
 
 const iconsDict = {
-    0: <HomeIcon/>,
-    1: <ArticleIcon/>,
-    2: <HealthAndSafetyIcon/>,
-    3: <BusinessIcon/>,
-    4: <InventoryIcon/>,
-    5: <NotificationsIcon/>,
-    6: <AddAlertIcon/>,
+    0: <HomeIcon />,
+    1: <ArticleIcon />,
+    2: <HealthAndSafetyIcon />,
+    3: <BusinessIcon />,
+    4: <InventoryIcon />,
+    5: <NotificationsIcon />,
+    6: <AddAlertIcon />,
 };
 /***************************************************************
  Define Mixins for Drawer
@@ -81,7 +81,7 @@ const closedMixin = (theme) => ({
  Define Drawer Header Component
  Define the component for the header of the drawer
  ***************************************************************/
-const DrawerHeader = styled('div')(({theme}) => ({
+const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -94,7 +94,7 @@ const DrawerHeader = styled('div')(({theme}) => ({
  ***************************************************************/
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
-})(({theme, open}) => ({
+})(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
@@ -113,8 +113,8 @@ const AppBar = styled(MuiAppBar, {
  Define Styled Drawer Component
  Define the styled component for the drawer
  ***************************************************************/
-const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
-    ({theme, open}) => ({
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
@@ -184,9 +184,9 @@ export default function DashBoard() {
     };
 
     return (
-        <Box data-testid={'dashBoard'} sx={{display: 'flex', justifyContent: 'center', position: 'relative'}}>
-            <ChatModal/>
-            <CssBaseline/>
+        <Box data-testid={'dashBoard'} sx={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+            <ChatModal />
+            <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
@@ -196,10 +196,10 @@ export default function DashBoard() {
                         edge="start"
                         sx={{
                             marginRight: 5,
-                            ...(open && {display: 'none'}),
+                            ...(open && { display: 'none' }),
                         }}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         {currentPage} Page
@@ -213,29 +213,29 @@ export default function DashBoard() {
                             marginLeft: 'auto',
                         }}
                     >
-                        <LogoutIcon/>
+                        <LogoutIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
+                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </DrawerHeader>
-                <Divider/>
+                <Divider />
                 <List>
                     {[
-                        {text: 'Home', page: 'Home'},
-                        {text: 'Articles', page: 'Articles'},
-                        {text: 'Safety Instruction', page: 'Safety Instruction'},
-                        {text: 'Organizations', page: 'Organizations'},
-                        {text: 'Resources', page: 'Resources'},
-                        {text: 'Alerts', page: 'Alerts'},
-                        {text: 'Add New Alert', page: 'Add New Alert'},
-                    ].map(({text, page}, index) => (
+                        { text: 'Home', page: 'Home' },
+                        { text: 'Articles', page: 'Articles' },
+                        { text: 'Safety Instruction', page: 'Safety Instruction' },
+                        { text: 'Organizations', page: 'Organizations' },
+                        { text: 'Resources', page: 'Resources' },
+                        { text: 'Alerts', page: 'Alerts' },
+                        { text: 'Add New Alert', page: 'Add New Alert' },
+                    ].map(({ text, page }, index) => (
                         (page === 'Alerts' && !isAdmin()) || (page === 'Add New Alert' && !isAdmin()) ? null : (
-                            <ListItem key={text} disablePadding sx={{display: 'block'}}>
+                            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48,
@@ -253,23 +253,23 @@ export default function DashBoard() {
                                     >
                                         {iconsDict[index]}
                                     </ListItemIcon>
-                                    <ListItemText primary={text} sx={{opacity: open ? 1 : 0}}/>
+                                    <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                                 </ListItemButton>
                             </ListItem>
                         )
                     ))}
                 </List>
-                <Divider/>
+                <Divider />
             </Drawer>
-            <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <DrawerHeader/>
-                {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick}/>}
-                {currentPage === 'Articles' && <ArticlesPage/>}
-                {currentPage === 'Safety Instruction' && <SafetyInstructionPage/>}
-                {currentPage === 'Organizations' && <OrganizationPage/>}
-                {currentPage === 'Alerts' && <AlertsPage/>}
-                {currentPage === 'Add New Alert' && <AddAlertsPage/>}
-                {currentPage === 'Resources' && <ResourcesPage/>}
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                <DrawerHeader />
+                {currentPage === 'Home' && <HomePage handleItemClick={handleItemClick} />}
+                {currentPage === 'Articles' && <ArticlesPage />}
+                {currentPage === 'Safety Instruction' && <SafetyInstructionPage />}
+                {currentPage === 'Organizations' && <OrganizationPage />}
+                {currentPage === 'Alerts' && <AlertsPage />}
+                {currentPage === 'Add New Alert' && <AddAlertsPage />}
+                {currentPage === 'Resources' && <ResourcesPage />}
             </Box>
         </Box>
     );

@@ -1,7 +1,7 @@
 /***************************************************************
  * Import Dependencies
  ***************************************************************/
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {CreateAlert} from '../../API/Alerts.api';
+import { CreateAlert } from '../../API/Alerts.api';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import styled from "styled-components";
 
@@ -75,7 +75,7 @@ const Form = () => {
             <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': {m: 2, width: '90%', display: 'flex', flexDirection: 'column'},
+                    '& .MuiTextField-root': { m: 2, width: '90%', display: 'flex', flexDirection: 'column' },
                     textAlign: 'center',
                     border: '1px solid #ccc',
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
@@ -92,9 +92,9 @@ const Form = () => {
                     onChange={handleChange}
                     type='text'
                     name='description'
-                    sx={{width: '100%'}}
+                    sx={{ width: '100%' }}
                 />
-                <Divider/>
+                <Divider />
                 <TextField
                     id="outlined-basic"
                     variant="outlined"
@@ -103,18 +103,18 @@ const Form = () => {
                     name='date'
                     InputProps={{
                         startAdornment: (
-                            <CalendarTodayIcon color="action"/>
+                            <CalendarTodayIcon color="action" />
                         ),
                     }}
-                    sx={{width: '100%'}}
+                    sx={{ width: '100%' }}
                 />
-                <Divider/>
+                <Divider />
                 <RadioGroup aria-label="priority" name="priority" value={formData.priority} onChange={handleChange}>
-                    <FormControlLabel value="Low" control={<Radio/>} label="Low" sx={{marginLeft: '2px'}}/>
-                    <FormControlLabel value="Medium" control={<Radio/>} label="Medium" sx={{marginLeft: '2px'}}/>
-                    <FormControlLabel value="High" control={<Radio/>} label="High" sx={{marginLeft: '2px'}}/>
+                    <FormControlLabel value="Low" control={<Radio />} label="Low" sx={{ marginLeft: '2px' }} />
+                    <FormControlLabel value="Medium" control={<Radio />} label="Medium" sx={{ marginLeft: '2px' }} />
+                    <FormControlLabel value="High" control={<Radio />} label="High" sx={{ marginLeft: '2px' }} />
                 </RadioGroup>
-                <br/>
+                <br />
                 <Button variant="contained" onClick={handleSubmit} type='submit'>Submit</Button>
                 {submitted && <SuccessMessage>Form submitted successfully!</SuccessMessage>}
                 {error && <ErrorMessage>{error}</ErrorMessage>}

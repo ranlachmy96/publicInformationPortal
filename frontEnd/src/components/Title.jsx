@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
  Title Component
  Renders a styled title with provided text
  ***************************************************************/
-const Title = ({text}) => {
+const Title = ({ text }) => {
     return (
         <StyledDiv>
             <Typography variant="h5" component="h2" gutterBottom>

@@ -1,3 +1,14 @@
+/***************************************************************
+ * useFetchNews Hook
+ * - Define a custom hook named useFetchNews
+ * - Initialize state variables: newsData, loading, and error using useState hook
+ * - Define a useEffect hook to fetch news data when the component mounts
+ * - Inside the useEffect, define a function fetchNews to make a GET request to the news API
+ * - Set loading to true while fetching data
+ * - If the request is successful, set newsData with the response data and setLoading to false
+ * - If an error occurs during the request, set error with the error object and setLoading to false
+ * - Return an object containing newsData, loading, and error
+ ***************************************************************/
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 

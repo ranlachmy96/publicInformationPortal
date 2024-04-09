@@ -1,3 +1,11 @@
+/***************************************************************
+ * Message Component
+ * - Define a functional component named Message
+ * - Utilizes styled-components for styling
+ * - Renders a message with a body and timestamp
+ * - Accepts a prop named 'message' containing the message content and timestamp
+ * - Uses Typography component from MUI for text styling
+ ***************************************************************/
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import styled from "styled-components";

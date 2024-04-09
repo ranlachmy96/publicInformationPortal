@@ -1,3 +1,16 @@
+/***************************************************************
+ * Transition Component
+ * - Define a custom transition component using Slide from MUI
+ ***************************************************************/
+
+/***************************************************************
+ * FullScreenDialog Component
+ * - Define a functional component named FullScreenDialog
+ * - Utilizes React.useState hook to manage dialog state
+ * - Defines handleClickOpen and handleClose functions for opening and closing the dialog
+ * - Renders a full-screen dialog with an action button and chat window
+ * - Provides AppBar with a close button and title
+ ***************************************************************/
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
@@ -28,7 +41,7 @@ export default function FullScreenDialog() {
 
     return (
         <React.Fragment>
-            <ActionButton func={handleClickOpen}/>
+            <ActionButton func={handleClickOpen} />
             <Dialog
                 fullScreen
                 open={open}
@@ -45,7 +58,7 @@ export default function FullScreenDialog() {
                     },
                 }}
             >
-                <AppBar sx={{position: 'relative', height: '12%', display: 'flex', justifyContent: 'center'}}>
+                <AppBar sx={{ position: 'relative', height: '12%', display: 'flex', justifyContent: 'center' }}>
                     <Toolbar>
                         <IconButton
                             edge="start"
@@ -53,16 +66,16 @@ export default function FullScreenDialog() {
                             onClick={handleClose}
                             aria-label="close"
                         >
-                            <CloseIcon/>
+                            <CloseIcon />
                         </IconButton>
-                        <Typography sx={{display: "flex", alignItems: 'center'}} variant="h6" component="div">
+                        <Typography sx={{ display: "flex", alignItems: 'center' }} variant="h6" component="div">
                             Information Bot
-                            <SmartToyIcon sx={{marginLeft: '10px'}}/>
+                            <SmartToyIcon sx={{ marginLeft: '10px' }} />
 
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <ChatWindow/>
+                <ChatWindow />
 
             </Dialog>
         </React.Fragment>

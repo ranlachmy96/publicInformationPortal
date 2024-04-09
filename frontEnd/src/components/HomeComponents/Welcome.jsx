@@ -1,3 +1,11 @@
+/***************************************************************
+ * Welcome Component
+ * - Define a functional component named Welcome
+ * - Utilizes styled-components for styling
+ * - Renders a Paper component with background image and content
+ * - Fetches active alerts data using useEffect hook and GetAllAlerts function
+ * - Displays fetched alerts in a scrolling list
+ ***************************************************************/
 import React, {useState, useEffect} from 'react';
 import styled, {keyframes} from 'styled-components';
 import Typography from '@mui/material/Typography';

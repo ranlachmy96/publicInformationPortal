@@ -1,3 +1,11 @@
+/***************************************************************
+ * Video Component
+ * - Define a functional component named Video
+ * - Utilizes styled-components for styling
+ * - Renders a responsive video container with an embedded YouTube video
+ * - Includes a Title component for displaying the title "Informational Video"
+ * - Embeds a YouTube video using an iframe with appropriate attributes
+ ***************************************************************/
 import React from 'react';
 import styled from 'styled-components';
 import Title from '../Title';

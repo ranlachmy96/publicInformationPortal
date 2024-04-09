@@ -1,3 +1,13 @@
+/***************************************************************
+ * Button Component
+ * - Define a functional component named Button
+ * - Accepts props: text and page (URL)
+ * - Renders a StyledButton component as an anchor tag
+ * - Uses the href attribute to link to the specified page
+ * - Uses target="_blank" to open the link in a new tab
+ * - Displays the text content inside the button
+ * - Returns the JSX structure for the Button component
+ ***************************************************************/
 import React from 'react';
 import styled from 'styled-components';
 
@@ -18,7 +28,7 @@ const StyledButton = styled.a`
     }
 `;
 
-const Button = ({text, page}) => {
+const Button = ({ text, page }) => {
     return (
         <StyledButton href={page} target="_blank">
             {text}

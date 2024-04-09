@@ -1,3 +1,11 @@
+/***************************************************************
+ * Button Component
+ * - Define a functional component named Button
+ * - Utilizes styled-components for styling
+ * - Renders a button with custom styling
+ * - Accepts props for button text, page, and click handler
+ * - Calls handleItemClick function when the button is clicked
+ ***************************************************************/
 import React from 'react';
 import styled from 'styled-components';
 

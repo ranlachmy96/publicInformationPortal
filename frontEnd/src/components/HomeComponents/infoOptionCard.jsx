@@ -1,3 +1,12 @@
+/***************************************************************
+ * InfoOptionCard Component
+ * - Define a functional component named InfoOptionCard
+ * - Utilizes styled-components for styling
+ * - Renders a card component with an icon, title, text, and a button
+ * - Accepts props for icon type, title, text, page, and click handler for the button
+ * - Maps icon type to corresponding Material-UI icon component
+ * - Renders the icon, title, text, and button inside the card container
+ ***************************************************************/
 import React from 'react';
 import ArticleIcon from '@mui/icons-material/Article';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';

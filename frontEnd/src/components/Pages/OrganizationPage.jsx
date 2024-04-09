@@ -1,11 +1,11 @@
 /***************************************************************
  * Import Dependencies
  ***************************************************************/
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import InfoCards from '../OrganizationComponents/infoCards.jsx';
 import styled from 'styled-components';
-import {GetAllOrganizations} from '../../API/Organizations.api.js';
+import { GetAllOrganizations } from '../../API/Organizations.api.js';
 
 const Container = styled.div`
     display: flex;
@@ -66,7 +66,7 @@ const OrganizationPage = () => {
             </Header>
             <StyledDiv>
                 {loading ? (
-                    <CircularProgress/>
+                    <CircularProgress />
                 ) : (
                     organizations.map(org => (
                         <InfoCards

@@ -1,3 +1,11 @@
+/***************************************************************
+ * Validate Function
+ * - Define an async function named Validate that takes a message as input
+ * - Constructs options object for making a POST request to the ML model endpoint
+ * - Sends the POST request to the ML model endpoint
+ * - Returns a boolean indicating whether the message is classified as emergency related or not
+ * - If an error occurs during the request, it returns 'error'
+ ***************************************************************/
 import axios from 'axios';
 
 async function Validate(message) {
