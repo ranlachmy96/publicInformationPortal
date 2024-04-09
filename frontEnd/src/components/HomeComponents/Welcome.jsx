@@ -36,6 +36,8 @@ const InnerPaper = styled(Paper)`
 const StyledLi = styled.li`
   margin-bottom: 2%;
   max-width: 90%; /* Adjust the max-width as needed */
+  opacity: 0;
+  animation: fadeInOut 2s forwards; /* Fade-in and fade-out animation */
 `;
 
 const scroll = keyframes`
@@ -43,7 +45,7 @@ const scroll = keyframes`
     transform: translateY(0);
   }
   100% {
-    transform: translateY(calc(-100% * 1.3));
+    transform: translateY(-100%);
   }
 `;
 
@@ -56,7 +58,7 @@ const StyledUl = styled.ul`
 `;
 
 const ScrollingContainer = styled.div`
-  animation: ${scroll} 7s ease-in-out infinite; 
+  animation: ${scroll} 15s linear infinite; 
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -106,7 +108,7 @@ const Welcome = () => {
                 <StyledUl>
                   <ScrollingContainer>
                     {alerts.map((alert, index) => (
-                        <StyledLi key={index} >
+                        <StyledLi key={index} style={{ animationDelay: `${index * 2}s`, opacity: 1 }}>
                           <div>{alert.description}</div>
                           <div>{alert.date}</div>
                         </StyledLi>
